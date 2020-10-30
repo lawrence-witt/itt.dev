@@ -1,19 +1,23 @@
 <?php
 
-require_once __DIR__ . "/vendor/autoload.php";
+include "config.php";
+
+require_once ROOT_DIR."/vendor/autoload.php";
+require_once ROOT_DIR."/template.class.php";
 
 $leaf = new Leaf\Core\Leaf();
-
-/* Config */
-$baseUrl = "http://localhost:8500";
 
 /* 
 |   Entry Point   
 */
 
 $leaf->get('/', function() {
-    $homePage = "<h1>Home Page</h1>";
-    echo $homePage;
+    $template = new Template('layout.phtml');
+    $template->assignVal('page_tab', '| Dictm');
+    $template->assignVal('page_content', 'Hello World!');
+    $markup = $template->returnMarkup();
+
+    echo $markup;
 });
 
 /* 
@@ -28,8 +32,8 @@ $leaf->get('/(\w+)', function($projectName) {
 |   404 Handling
 */
 
-$leaf->set404(function () use($baseUrl) {
-    header("Location: {$baseUrl}");
+$leaf->set404(function () {
+    header("Location: ".BASE_URL);
 });
 
 $leaf->run();

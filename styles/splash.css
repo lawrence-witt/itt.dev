@@ -1,0 +1,138 @@
+section.splash {
+    height: calc(var(--max-vh) * 0.90 - var(--body-padding));
+    /* IE11 */
+    -ms-grid-row: 1;
+    /* Modern */
+    width: 100%;
+    min-height: 450px;
+}
+
+section.splash .group {
+    /* IE11 */
+    -ms-grid-row-span: 1;
+}
+
+section.splash .title {
+    /* IE11 */
+    -ms-grid-row: 1;
+}
+
+section.splash .title h1 {
+    line-height: var(--p-line-height);
+}
+
+section.splash .subtitle {
+    /* IE11 */
+    -ms-grid-row: 2;
+    /* Modern */
+    max-width: 275px;
+}
+
+/* 
+|   NAV SECTION
+*/
+
+section.splash .nav {
+    /* IE11 */
+    -ms-grid-row: 3;
+    /* Modern */
+    max-width: 275px;
+}
+
+section.splash .nav .content {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Link List */
+
+section.splash .nav ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+section.splash .nav li {
+    margin-right: 50px;
+}
+
+/* Theme Button */
+
+section.splash .theme-button-container {
+    height: 0%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section.splash .theme-button-container:before {
+    visibility: hidden;
+    display: block;
+    content: ".";
+    font-size: var(--p-size);
+    line-height: var(--p-line-height);
+}
+
+section.splash button.theme svg {
+    width: var(--p-size);
+    height: var(--p-size);
+    fill: var(--text-colour);
+    transition: fill 0.5s;
+}
+
+body.hasHover section.splash button.theme:hover svg {
+    fill: var(--hover-colour);
+}
+
+section.splash button.theme .sun {
+    display: var(--sun-display);
+}
+
+section.splash button.theme .moon {
+    display: var(--moon-display);
+}
+
+/* 
+|   TABLET REFLOW
+*/
+
+@media (min-width: 600px) {
+    section.splash .title {
+        /* IE11 */
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+    }
+    
+    section.splash .subtitle {
+        /* IE11 */
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 3;
+        -ms-grid-column-span: 1;
+        /* Modern */
+        max-width: 100vw;
+    }
+
+    section.splash .nav {
+        /* IE11 */
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+        /* Modern */
+        max-width: 100vw;
+    }
+}
+
+/* 
+|   DESKTOP REFLOW
+*/
+
+@media (min-width: 1200px) {
+    section.splash .nav {
+        /* IE11 */
+        -ms-grid-row: 1;
+        -ms-grid-column: 5;
+    }
+}
