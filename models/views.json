@@ -1,0 +1,35 @@
+{
+    "home": {
+        "styles": ["projects.css", "about.css"],
+        "desc": "Full stack developer<br>creating modern, performant<br>utilities for the web",
+        "content": {
+            "about": {
+                "profile_img": "profile-square.jpg",
+                "tech_lists": [
+                    {"id": "front", "name": "Front End", "tags": [
+                        "HTML5", "CSS3", "SCSS", "JavaScript", "React", "Redux", "Styled Components"
+                    ]},
+                    {"id": "back", "name": "Back End", "tags": [
+                        "Node.js", "PHP", "MongoDB", "SQLite", "Apache", "NGINX", "WordPress", "Amazon Web Services"
+                    ]},
+                    {"id": "tools", "name": "Tooling", "tags": [
+                        "NPM", "Command Line", "Git/GitHub", "Mocha", "Jest", "Windows", "Linux/Ubuntu"
+                    ]}
+                ],
+                "contact_links": [
+                    {"name": "Email", "href": "mailto:lawrence.witt@hotmail.co.uk"},
+                    {"name": "Stack Overflow", "href": ""},
+                    {"name": "GitHub", "href": ""},
+                    {"name": "LinkedIn", "href": ""}
+                ]
+            }
+        },
+        "scripts": ["home.js"]
+    },
+    "article": {
+        "styles": ["article.css"],
+        "desc": "",
+        "content": {},
+        "scripts": []
+    }
+}

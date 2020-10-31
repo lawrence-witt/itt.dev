@@ -1,0 +1,40 @@
+<section class="article">
+    <div class="group media">
+        <header>
+            <p class="s-s">1.0</p>
+        </header>
+        <div class="tile">
+            <img src="<?= $this->project_img ?>">
+        </div>
+    </div>
+    <div class="group links">
+        <header>
+            <p class="s-s">1.1</p>
+        </header>
+        <ul>
+            <?php foreach ((array) $this->links as $link): ?>
+                <li><a class="hover-hl" href="<?= $link->src ?>" target="_blank">↳&nbsp;<span class="underline bold"><?= $link->name ?></span></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="group techs">
+        <header>
+            <p class="s-s">1.2</p>
+        </header>
+        <ul>
+            <?php foreach ((array) $this->techs as $tech): ?>
+                <li><?= $tech ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div class="group text filled last">
+        <header>
+            <p class="s-s">1.3</p>
+        </header>
+        <div>
+            <?php foreach ((array) $this->article as $para): ?>
+                <p><?= $para ?></p>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>

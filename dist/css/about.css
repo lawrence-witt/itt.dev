@@ -1,0 +1,134 @@
+section.about {
+    -ms-grid-row: 3;
+}
+
+section.about .group {
+    -ms-grid-row-span: 1;
+}
+
+section.about .headshot {
+    -ms-grid-row: 1;
+}
+
+section.about .bio {
+    -ms-grid-row: 2;
+}
+
+section.about .links {
+    -ms-grid-row: 3;
+}
+
+/* Head Shot */
+
+section.about .headshot .tile {
+    width: 50vw;
+    height: 50vw;
+    max-width: 275px;
+    max-height: 275px;
+}
+
+/* Bio */
+
+section.about .bio .content > p:first-child {
+    margin-bottom: 25px;
+}
+
+section.about .bio button {
+    margin-bottom: 25px;
+}
+
+/* Tech List */
+
+section.about section.tech-list {
+    height: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+/* Margins */
+
+section.about section.tech-list .back {
+    margin: 25px 0;
+}
+
+section.about section.tech-list .tools {
+    padding-bottom: 25px;
+}
+
+section.about section.tech-list h2 {
+    margin-bottom: 15px;
+}
+
+/* Tag Styles */
+
+section.about section.tech-list .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-bottom: -15px;
+}
+
+section.about section.tech-list li {
+    line-height: normal;
+    border: 1px solid var(--text-colour);
+    padding: 5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+/* 
+|   TABLET REFLOW
+*/
+
+@media (min-width: 600px) {
+    section.about .headshot .tile {
+        width: var(--tile-size);
+        height: var(--tile-size);
+    }
+    
+    section.about .bio,
+    section.about .links {
+        /* IE11 */
+        -ms-grid-column-span: 3;
+        /* Modern */
+        grid-column: 1 / 3;
+    }
+
+    /* Wrap Links */
+
+    section.about .links ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    section.about .links ul li {
+        margin-right: 25px;
+    }
+}
+
+/* 
+|   DESKTOP REFLOW
+*/
+
+@media (min-width: 1200px) {
+    section.about .headshot {
+        position: sticky;
+        top: var(--body-padding);
+        height: min-content;
+    }
+
+    section.about .bio {
+        /* IE11 */
+        -ms-grid-row: 1;
+        -ms-grid-column: 3;
+        /* Modern */
+        grid-row: 1;
+        grid-column: 2 / span 2;
+    }
+
+    section.about .links {
+        -ms-grid-column: 3;
+        grid-column: 2 / span 2;
+    }
+}

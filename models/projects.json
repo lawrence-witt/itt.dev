@@ -1,0 +1,63 @@
+[
+    {
+        "id": "dictm",
+        "name": "Dictm",
+        "desc": "Voice recording application with server-side storage and authentication",
+        "project_img": "dictm-square.png",
+        "links": [
+            {"name": "View Site", "src": ""},
+            {"name": "View Source", "src": ""}
+        ],
+        "techs": [
+            "React", "Redux", "Styled Components", "Web Audio API", "Node.js", "Express", "MongoDB", "NGINX"
+        ],
+        "article": [
+            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        ]
+    },
+    {
+        "id": "portfolio",
+        "name": "Portfolio",
+        "desc": "Developer portfolio showcasing my current skillset",
+        "project_img": "portfolio-square.png",
+        "links": [
+            {"name": "View Source", "src": ""}
+        ],
+        "techs": [
+            "HTML", "SCSS", "Javascript", "PHP", "NGINX"
+        ],
+        "article": [
+            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        ]
+    },
+    {
+        "id": "strangearray",
+        "name": "StrangeArray",
+        "desc": "3-D visualiser for exploring and editing mutli-dimensional arrays",
+        "project_img": "strange-square.png",
+        "links": [
+            {"name": "View Site", "src": ""}
+        ],
+        "techs": [
+            "React", "Redux", "CSS", "Three.js", "NGINX"
+        ],
+        "article": [
+            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        ]
+    },
+    {
+        "id": "hebden",
+        "name": "Ann Hebden Ceramics",
+        "desc": "Sleek, minimalist artist portfolio built on top of the WordPress API",
+        "project_img" : "hebden-square.png",
+        "links": [
+            {"name": "View Site", "src": "https://www.annhebdenceramics.co.uk"}
+        ],
+        "techs": [
+            "React", "CSS", "WordPress", "Amazon Web Services", "Apache"
+        ],
+        "article": [
+            "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+        ]
+    }
+]

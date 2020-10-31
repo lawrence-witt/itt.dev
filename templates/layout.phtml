@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="../styles/splash.css">
-    {# page_styles #}
-    <title>W.ITT {# page_tab #}</title>
-    <script src="../scripts/main.js"></script>
+    <link rel="stylesheet" href="./dist/css/index.css">
+    <link rel="stylesheet" href="./dist/css/splash.css">
+    <?php foreach ((array) $this->page_styles as $style_src): ?>
+        <link rel="stylesheet" href="<?= $style_src ?>">
+    <?php endforeach; ?>
+    <title>W.ITT <?= $this->page_tab ?></title>
+    <script src="./dist/js/main.js"></script>
     <script>window.MSInputMethodContext && document.documentMode && document.write('<script src="https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.1.0/ie11CustomProperties.min.js"><\x2fscript>');</script>
 </head>
 <body>
@@ -25,8 +27,8 @@
                 <p class="s-s">0.0</p>
             </header>
             <div>
-                <a href="#" class="hover-hl"><h1 class="bold">Lawrence Witt</h1></a>
-                {# page_title #}
+                <a href="<?= BASE_URL ?>" class="hover-hl"><h1 class="bold">Lawrence Witt</h1></a>
+                <h1><?= $this->page_title ?></h1>
             </div>
         </div>
         <div class="group subtitle">
@@ -35,7 +37,7 @@
             </header>
             <div>
                 <p>
-                    {# page_desc #}
+                    <?= $this->page_desc ?>
                 </p>
             </div>
         </div>
@@ -45,8 +47,8 @@
             </header>
             <div class="content">
                 <ul>
-                    <li><a class="underline hover-hl" href="#projects">projects</a></li>
-                    <li><a class="underline hover-hl" href="#about">about</a></li>
+                    <li><a class="underline hover-hl" href="<?= BASE_URL ?>/#projects">projects</a></li>
+                    <li><a class="underline hover-hl" href="<?= BASE_URL ?>/#about">about</a></li>
                 </ul>
                 <div class="theme-button-container">
                     <button class="theme">
@@ -57,7 +59,11 @@
             </div>
         </nav>
     </section>
-    {# page_content #}
-    {# page_scripts #}
+    <?php foreach((array) $this->page_sections as $section): ?>
+        <?= $section ?>
+    <?php endforeach; ?>
+    <?php foreach ((array) $this->page_scripts as $script_src): ?>
+        <script src="<?= $script_src ?>"></script>
+    <?php endforeach; ?>
 </body>
 </html>

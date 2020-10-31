@@ -4,30 +4,39 @@
         protected $values = array();
         protected $tmpl;
 
+        /* Initialise with template file */
         public function __construct($template_file='') {
-            $file_location = $this->template_dir.$template_file;
+            $template_location = $this->template_dir.$template_file;
 
-            if (file_exists($file_location)) {
-                $this->tmpl = file_get_contents($file_location);
+            if (file_exists($template_location)) {
+                $this->tmpl = $template_location;
             } else {
-                throw new Exception("Template file {$file_location} not found.");
-            };
+                throw new Exception("No file found at {$template_location}.");
+            }
         }
 
-        public function assignVal($key, $value) {
+        /* Assign new key/value to values array */
+        public function __set($key, $value) {
             $this->values[$key] = $value;
         }
 
-        public function returnMarkup() {
-            if (count($this->values) > 0) {
-                /* Assign saved values */
-                foreach ($this->values as $key => $value) {
-                    $this->tmpl = str_replace("{# ".$key." #}", $value, $this->tmpl);
-                };
-                /* Remove any unassigned tags */
-                $this->tmpl = preg_replace("/({#)(.*)(#})/", "", $this->tmpl);
-                return $this->tmpl;
+        /* Read from values array */
+        public function __get($key) {
+            if (isset($this->values[$key])) {
+                return $this->values[$key];
             };
+        }
+
+        /* Return markup as string executed against values array */
+        public function returnMarkup() {
+            ob_start();
+            include $this->tmpl;
+            return ob_get_clean();
+        }
+
+        /* Render markup immediately */
+        public function render() {
+            include $this->tmpl;
         }
     }
 ?>

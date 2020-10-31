@@ -1,0 +1,19 @@
+<section id="projects" class="projects">
+    <?php foreach((array) $this->project_cards as $card): ?>
+        <div class="group <?= $card->id ?> <?= $card->last ?>">
+            <header class="over-trigger">
+                <a href="<?= $card->link ?>">
+                    <p class="s-s">1.<?= $card->idx ?></p>
+                </a>
+            </header>
+            <div class="tile over-trigger">
+                <a href="<?= $card->link ?>">
+                    <img src="<?= $card->img ?>">
+                    <div class="media-block">
+                        <h1 class="bold"><?= $card->name ?></h1>
+                    </div>
+                </a>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</section>
