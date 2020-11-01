@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>window.MSInputMethodContext && document.documentMode && document.write('<script src="https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.1.0/ie11CustomProperties.min.js"><\x2fscript>');</script>
+    <script src="./dist/js/polyfills.js"></script>
+    <script src="./dist/js/main.js"></script>
     <link rel="stylesheet" href="./dist/css/index.css">
     <link rel="stylesheet" href="./dist/css/splash.css">
     <?php foreach ((array) $this->page_styles as $style_src): ?>
         <link rel="stylesheet" href="<?= $style_src ?>">
     <?php endforeach; ?>
     <title>W.ITT <?= $this->page_tab ?></title>
-    <script src="./dist/js/main.js"></script>
-    <script>window.MSInputMethodContext && document.documentMode && document.write('<script src="https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.1.0/ie11CustomProperties.min.js"><\x2fscript>');</script>
 </head>
 <body>
     <div class="rulers">

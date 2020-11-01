@@ -7,10 +7,10 @@
 function manageMaxVh() {
     
     /* Return function */
-    let maxVh = () => window.innerHeight;
+    let maxVh = function() { return window.innerHeight };
 
     /* Detect portrait-primary devices */
-    const isPortraitDevice = (() => {
+    const isPortraitDevice = (function() {
         const orientation = 
             screen.orientation || 
             screen.mozOrientation || 
@@ -25,9 +25,9 @@ function manageMaxVh() {
     })();
 
     /* Manage maxVh if device is portrait-primary */
-    isPortraitDevice && (() => {
+    isPortraitDevice && (function() {
         const rootStyle = document.documentElement.style;
-        const getOrientation = () => screen.orientation.type || screen.orientation;
+        const getOrientation = function() { return screen.orientation.type || screen.orientation; };
     
         let currentHeight = window.innerHeight;
         let currentWidth = window.innerWidth;
@@ -41,19 +41,19 @@ function manageMaxVh() {
                 currentWidth = window.innerWidth;
                 currentOrientation = getOrientation();
                 rootStyle.setProperty('--max-vh', currentHeight + 'px');
-                maxVh = () => currentHeight;
+                maxVh = function() { return currentHeight; };
                 return;
             };
     
             /* Release 100vh back to browser on a valid width resize */
             rootStyle.setProperty('--max-vh', '100vh');
-            maxVh = () => window.innerHeight;
+            maxVh = function() { return window.innerHeight; };
             window.removeEventListener('resize', checkEvent);
         };
     
         /* Hard set 100vh with the current window.innerHeight */
         rootStyle.setProperty('--max-vh', currentHeight + 'px');
-        maxVh = () => currentHeight;
+        maxVh = function() { return currentHeight; };
 
         /* Check for non-orientation width resize */
         window.addEventListener('resize', checkResize);
@@ -74,7 +74,7 @@ function setInitialTheme() {
 function manageTheme() {
     const themeButton = document.querySelector('button.theme');
 
-    const changeTheme = () => {
+    const changeTheme = function () {
         const currTheme = rootEl.getAttribute("data-theme");
         const nextTheme = !currTheme || currTheme === 'light' ? 'dark' : 'light';
         rootEl.setAttribute("data-theme", nextTheme);
@@ -110,12 +110,12 @@ function watchForHover() {
 }
 
 /* INITIATLISE */
-(() => {
+(function() {
     manageMaxVh();
     setInitialTheme();
 })();
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', function() {
     watchForHover();
     manageTheme();
 });

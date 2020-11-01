@@ -9,9 +9,10 @@ function listenProficiencyClick() {
 
     /* Internal Vars */
     let toggled = false;
-    const refreshListHeight = () => techList.style.maxHeight = techList.scrollHeight + 'px';
+    const refreshListHeight = function () { techList.style.maxHeight = techList.scrollHeight + 'px'; };
 
-    proficiencyButton.addEventListener('click', () => {
+    /* Assign Event Listener */
+    proficiencyButton.addEventListener('click', function() {
         if (toggled) {
             mode.innerHTML = 'See';
             arrow.innerHTML = '&#9660;';
@@ -29,16 +30,18 @@ function listenProficiencyClick() {
 };
 
 function listenTileMouseOvers() {
+    /* Document Var */
     const overTriggers = document.querySelectorAll('.over-trigger');
 
-    overTriggers.forEach(trigger => {
+    /* Assign Event Listeners */
+    overTriggers.forEach(function(trigger) {
         const group = trigger.closest('.group');
 
-        trigger.addEventListener('mouseover', () => {
+        trigger.addEventListener('mouseover', function() {
             group.classList.add('focussed');
         });
 
-        trigger.addEventListener('mouseleave', () => {
+        trigger.addEventListener('mouseleave', function() {
             group.classList.remove('focussed');
         });
     });
@@ -55,7 +58,10 @@ function observeTilePositions() {
         const group = el.closest('.group');
         const isFocussed = group.classList.contains('focussed');
 
-        const { height, top } = el.getBoundingClientRect();
+        const measures = el.getBoundingClientRect();
+        const height = measures.height;
+        const top = measures.top;
+
         const pageHeight = window.innerHeight;
         const shouldFocus = top <= pageHeight/2 - height/2;
 
@@ -66,15 +72,15 @@ function observeTilePositions() {
         };
     };
 
-    tiles.forEach(tile => {
+    tiles.forEach(function (tile) {
         checkDocumentPosition(tile);
-        window.addEventListener('scroll', () => checkDocumentPosition(tile))
+        window.addEventListener('scroll', function() { checkDocumentPosition(tile) });
     });
 };
 
 /* INITIATLISE */
 
-(() => {
+(function() {
     const supportsHover = !(matchMedia('(hover: none)').matches);
     
     listenProficiencyClick();
