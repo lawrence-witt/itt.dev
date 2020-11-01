@@ -16,7 +16,7 @@ html {
     --tile-size: 85vw;
     --page-tracks: 1fr 85vw 1fr;
     --section-tracks: 85vw;
-    --ex-section-tracks: 85vw;
+    --ie11-section-tracks: 85vw;
     /* Global Theme */
     --hover-colour: #FF496C;
 }
@@ -216,7 +216,7 @@ body > section {
     -ms-grid-column: 2;
     -ms-grid-row-span: 1;
     display: -ms-grid;
-    -ms-grid-columns: var(--ex-section-tracks);
+    -ms-grid-columns: var(--ie11-section-tracks);
     /* Modern */
     display: grid;
     grid-template-columns: var(--section-tracks);
@@ -331,7 +331,7 @@ body.hasHover .hover-hl:hover * {
         --tile-size: 41.25vw;
         --page-tracks: 1fr 41.25vw 7.5vw 41.25vw 1fr;
         --section-tracks: repeat(2, 41.25vw);
-        --ex-section-tracks: 41.25vw 7.5vw 41.25vw;
+        --ie11-section-tracks: 41.25vw 7.5vw 41.25vw;
     }
 
     body > section {
@@ -375,7 +375,7 @@ body.hasHover .hover-hl:hover * {
         --tile-size: 26.66vw;
         --page-tracks: 1fr 26.66vw 5vw 26.66vw 5vw 26.66vw 1fr;
         --section-tracks: repeat(3, 26.66vw);
-        --ex-section-tracks: 26.66vw 5vw 26.66vw 5vw 26.66vw;
+        --ie11-section-tracks: 26.66vw 5vw 26.66vw 5vw 26.66vw;
     }
 
     body > section {
