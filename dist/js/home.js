@@ -59,16 +59,17 @@ function listenProjectLink() {
             const target = e.currentTarget;
             const scrollToTop = function() {
                 window.scrollTo({top: 0, behavior: 'smooth'});
-            };            
+            };
+            const changePage = function() {
+                window.location.href = target.href;
+            };
 
             /* Change page when all scrolling stops */
             let scrollTimeout;
 
-            window.addEventListener('scroll', () => {
+            window.addEventListener('scroll', function() {
                 clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(function() {
-                    window.location.href = target.href;
-                }, 50);
+                scrollTimeout = setTimeout(changePage, 50);
             });
 
             /* Override user scroll during transition */
@@ -78,7 +79,7 @@ function listenProjectLink() {
             });
 
             /* Initiate scroll */
-            scrollToTop();
+            window.pageYOffset > 0 ? scrollToTop() : changePage();
         });
     });
 };
@@ -89,7 +90,7 @@ function observeTilePositions() {
     /* Document Var */
     const tiles = document.querySelectorAll('.tile');
 
-    /* Add Focus When Higher Than 50% Viewport */
+    /* Add Focus When Center is Higher Than 50% Viewport */
     function checkDocumentPosition(el) {
         const group = el.closest('.group');
         const isFocussed = group.classList.contains('focussed');

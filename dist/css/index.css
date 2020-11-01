@@ -62,9 +62,11 @@ html[data-theme="dark"] {
 /* Delay Transitions */
 
 html[data-theme-loaded="true"] {
-    --universal-trans: color 0.5s, text-decoration-color 0.5s, background-color 0.5s, border-color 0.5s;
-    --svg-trans: fill 0.5s;
+    --fill-trans: fill 0.5s;
+    --link-trans: color 0.5s, text-decoration-color 0.5s, border-color 0.5s;
     --media-trans: transform 0.5s, opacity 0.5s, background-color 0.5s;
+    --background-trans: background-color 0.5s;
+    --ruler-trans: border-color 0.5s;
 }
 
 /* IE11 VW Fix */
@@ -85,7 +87,6 @@ html[data-theme-loaded="true"] {
     text-rendering: optimizeLegibility;
     text-decoration: none;
     scroll-behavior: smooth;
-    transition: var(--universal-trans);
 }
 
 button {
@@ -103,7 +104,14 @@ button:focus {
 */
 
 h1, h2, p, li, a {
+    display: block;
     color: var(--text-colour);
+    transition: var(--link-trans);
+}
+
+span {
+    color: var(--text-colour);
+    transition: var(--link-trans);
 }
 
 h1 {
@@ -148,6 +156,7 @@ body {
     min-width: 300px;
     padding-top: var(--body-padding);
     background-color: var(--base-colour);
+    transition: var(--background-trans);
 }
 
 body:after {
@@ -195,6 +204,7 @@ body:after {
     width: 0px;
     height: 100%;
     border-right: 2px dashed var(--text-colour);
+    transition: var(--ruler-trans);
 }
 
 /* 
