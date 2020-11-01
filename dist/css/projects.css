@@ -14,7 +14,7 @@ section.projects .portfolio {
     -ms-grid-row: 2;
 }
 
-section.projects .strange {
+section.projects .strangearray {
     -ms-grid-row: 3;
 }
 
@@ -22,24 +22,13 @@ section.projects .hebden {
     -ms-grid-row: 4;
 }
 
-/* Media Tile */
-
-section.projects .tile {
-    width: var(--tile-size);
-    height: var(--tile-size);
-}
-
-section.projects .tile .media-block {
-    width: 100%;
-    height: 100%;
-    background-color: var(--tile-colour);
-}
-
 @media (min-width: 600px) {
     section.projects .group {
         -ms-grid-row: 1;
     }
+}
 
+@media (min-width: 600px) and (max-width: 1200px) {
     /* Second Row */
     section.projects .group:nth-child(n + 3) {
         -ms-grid-row: 2;
@@ -53,14 +42,6 @@ section.projects .tile .media-block {
 }
 
 @media (min-width: 1200px) {
-    /* Unset Previous */
-    section.projects .group:nth-child(n + 3),
-    section.projects .group:nth-child(2n) {
-        padding-bottom: 50px; 
-        -ms-grid-row: 1;
-        -ms-grid-column: 1;
-    }
-
     /* Second Row */
     section.projects .group:nth-child(n + 4) {
         -ms-grid-row: 2;

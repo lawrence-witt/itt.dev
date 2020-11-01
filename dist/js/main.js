@@ -67,14 +67,18 @@ const rootEl = document.documentElement;
 
 function setInitialTheme() {
     const savedTheme = sessionStorage.getItem('theme');
-    savedTheme && rootEl.setAttribute("data-theme", savedTheme);
-    rootEl.setAttribute("data-theme-loaded", true);
+    window.requestAnimationFrame(function() {
+        savedTheme && rootEl.setAttribute("data-theme", savedTheme);
+        window.requestAnimationFrame(function() {
+            rootEl.setAttribute("data-theme-loaded", true);
+        });
+    });
 };
 
 function manageTheme() {
     const themeButton = document.querySelector('button.theme');
 
-    const changeTheme = function () {
+    const changeTheme = function() {
         const currTheme = rootEl.getAttribute("data-theme");
         const nextTheme = !currTheme || currTheme === 'light' ? 'dark' : 'light';
         rootEl.setAttribute("data-theme", nextTheme);

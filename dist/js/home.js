@@ -47,6 +47,42 @@ function listenTileMouseOvers() {
     });
 };
 
+function listenProjectLink() {
+    /* Document Var */
+    const projLinks = document.querySelectorAll('.proj-link');
+
+    /* Assign Event Listeners */
+    projLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const target = e.currentTarget;
+            const scrollToTop = function() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            };            
+
+            /* Change page when all scrolling stops */
+            let scrollTimeout;
+
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    window.location.href = target.href;
+                }, 50);
+            });
+
+            /* Override user scroll during transition */
+            window.addEventListener('wheel', function(wheelE) {
+                wheelE.preventDefault();
+                scrollToTop();
+            });
+
+            /* Initiate scroll */
+            scrollToTop();
+        });
+    });
+};
+
 /* SCROLL INTERACTIONS */
 
 function observeTilePositions() {
@@ -84,5 +120,6 @@ function observeTilePositions() {
     const supportsHover = !(matchMedia('(hover: none)').matches);
     
     listenProficiencyClick();
+    listenProjectLink();
     supportsHover ? listenTileMouseOvers() : observeTilePositions();
 })();

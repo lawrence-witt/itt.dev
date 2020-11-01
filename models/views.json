@@ -7,7 +7,7 @@
                 "profile_img": "profile-square.jpg",
                 "tech_lists": [
                     {"id": "front", "name": "Front End", "tags": [
-                        "HTML5", "CSS3", "SCSS", "JavaScript", "React", "Redux", "Styled Components"
+                        "HTML5", "CSS3", "JavaScript", "React", "Redux", "Styled Components"
                     ]},
                     {"id": "back", "name": "Back End", "tags": [
                         "Node.js", "PHP", "MongoDB", "SQLite", "Apache", "NGINX", "WordPress", "Amazon Web Services"

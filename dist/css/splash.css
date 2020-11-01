@@ -76,7 +76,7 @@ section.splash button.theme svg {
     width: var(--p-size);
     height: var(--p-size);
     fill: var(--text-colour);
-    transition: fill 0.5s;
+    transition: var(--svg-trans);
 }
 
 body.hasHover section.splash button.theme:hover svg {

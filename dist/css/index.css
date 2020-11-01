@@ -63,6 +63,7 @@ html[data-theme="dark"] {
 
 html[data-theme-loaded="true"] {
     --universal-trans: color 0.5s, text-decoration-color 0.5s, background-color 0.5s, border-color 0.5s;
+    --svg-trans: fill 0.5s;
     --media-trans: transform 0.5s, opacity 0.5s, background-color 0.5s;
 }
 
