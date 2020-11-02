@@ -123,3 +123,5 @@ window.addEventListener('DOMContentLoaded', function() {
     watchForHover();
     manageTheme();
 });
+
+window.addEventListener('unload', function() {});
