@@ -18,9 +18,9 @@
                 ],
                 "contact_links": [
                     {"name": "Email", "href": "mailto:lawrence.witt@hotmail.co.uk"},
-                    {"name": "Stack Overflow", "href": ""},
-                    {"name": "GitHub", "href": ""},
-                    {"name": "LinkedIn", "href": ""}
+                    {"name": "Stack Overflow", "href": "https://stackoverflow.com/users/12799351/lawrence-witt?tab=profile"},
+                    {"name": "GitHub", "href": "https://github.com/lawrence-witt"},
+                    {"name": "LinkedIn", "href": "https://www.linkedin.com/in/lawrence-witt-9863071bb/"}
                 ]
             }
         },
