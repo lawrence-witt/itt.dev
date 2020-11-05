@@ -3,7 +3,7 @@
         "id": "dictm",
         "name": "Dictm",
         "desc": "Audio player and recorder with server-side storage and authentication",
-        "project_img": "dictm-square.png",
+        "project_img": "dictm-square.jpg",
         "links": [
             {"name": "View Site", "src": ""},
             {"name": "View Source", "src": ""}
@@ -21,7 +21,7 @@
         "id": "portfolio",
         "name": "Portfolio",
         "desc": "Developer portfolio showcasing my current skillset",
-        "project_img": "portfolio-square.png",
+        "project_img": "portfolio-square.jpg",
         "links": [
             {"name": "View Source", "src": ""}
         ],
@@ -38,7 +38,7 @@
         "id": "strangearray",
         "name": "StrangeArray",
         "desc": "3-D visualiser for exploring and editing mutli-dimensional arrays",
-        "project_img": "strange-square.png",
+        "project_img": "strange-square.jpg",
         "links": [
             {"name": "View Site", "src": ""},
             {"name": "View Source", "src": ""}
@@ -56,7 +56,7 @@
         "id": "hebden",
         "name": "Ann Hebden Ceramics",
         "desc": "Sleek, minimalist artist portfolio built on top of the WordPress API",
-        "project_img" : "hebden-square.png",
+        "project_img" : "hebden-square.jpg",
         "links": [
             {"name": "View Site", "src": "https://www.annhebdenceramics.co.uk"}
         ],
