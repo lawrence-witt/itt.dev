@@ -67,10 +67,14 @@ const rootEl = document.documentElement;
 
 function setInitialTheme() {
     const savedTheme = sessionStorage.getItem('theme');
+
     window.requestAnimationFrame(function() {
-        savedTheme && rootEl.setAttribute("data-theme", savedTheme);
+        rootEl.setAttribute("data-theme-loaded", false);
         window.requestAnimationFrame(function() {
-            rootEl.setAttribute("data-theme-loaded", true);
+            savedTheme && rootEl.setAttribute("data-theme", savedTheme);
+            window.requestAnimationFrame(function() {
+                rootEl.setAttribute("data-theme-loaded", true);
+            });
         });
     });
 };
@@ -119,9 +123,11 @@ function watchForHover() {
     setInitialTheme();
 })();
 
+window.addEventListener('pageshow', function() {
+    setInitialTheme();
+});
+
 window.addEventListener('DOMContentLoaded', function() {
     watchForHover();
     manageTheme();
 });
-
-window.addEventListener('unload', function() {});

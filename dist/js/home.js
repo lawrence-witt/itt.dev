@@ -55,28 +55,33 @@ function listenProjectLink() {
     projLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-
             const target = e.currentTarget;
+
+            /* Event Functions */
             const scrollToTop = function() {
                 window.scrollTo({top: 0, behavior: 'smooth'});
             };
             const changePage = function() {
                 window.location.href = target.href;
             };
+            const debouncePageChange = function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    changePage();
+                    window.removeEventListener('scroll', debouncePageChange);
+                    window.removeEventListener('wheel', overrideUserScroll);
+                }, 50);
+            };
+            const overrideUserScroll = function(wheelE) {
+                wheelE.preventDefault();
+                scrollToTop();
+            };
 
             /* Change page when all scrolling stops */
             let scrollTimeout;
 
-            window.addEventListener('scroll', function() {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(changePage, 50);
-            });
-
-            /* Override user scroll during transition */
-            window.addEventListener('wheel', function(wheelE) {
-                wheelE.preventDefault();
-                scrollToTop();
-            });
+            window.addEventListener('scroll', debouncePageChange);
+            window.addEventListener('wheel', overrideUserScroll);
 
             /* Initiate scroll */
             window.pageYOffset > 0 ? scrollToTop() : changePage();
