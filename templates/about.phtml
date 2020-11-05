@@ -4,7 +4,7 @@
             <p class="s-s over-trigger">2.0</p>
         </header>
         <div class="tile over-trigger">
-            <img src="<?= $this->profile_img ?>">
+            <img alt="Profile Image" src="<?= $this->profile_img ?>">
             <div class="media-block">
                 <h1 class="bold">Profile</h1>
             </div>
@@ -18,7 +18,7 @@
             <p>
                 Hi, I'm Lawrence, a self-taught web developer currently based in Canterbury in the UK. I live and breath HTML, CSS, and JavaScript, and love building fast, clean applications using the latest frameworks and tech stacks. From client-facing UI and Web APIs to server-side architecture and data storage, I'm on board for every step of the development process.
             </p>
-            <button class="proficiencies hover-hl">
+            <button class="proficiencies hover-hl" aria-label="Toggle Proficiency List">
                 <h2>
                     <span class="underline bold">
                         <span class="mode bold">See</span>&nbsp;Core Proficiencies</span>&nbsp;<span class="s-s arrow">&#9660;</span>
@@ -47,7 +47,7 @@
         </header>
         <ul>
             <?php foreach((array) $this->contact_links as $link): ?>
-                <li><a class="hover-hl" href="<?= $link->href ?>" target="_blank">↳&nbsp;<span class="underline bold"><?= $link->name ?></span></a></li>
+                <li><a class="hover-hl" href="<?= $link->href ?>" rel="noopener noreferrer" target="_blank">↳&nbsp;<span class="underline bold"><?= $link->name ?></span></a></li>
             <?php endforeach; ?>
         </ul>
     </div>
