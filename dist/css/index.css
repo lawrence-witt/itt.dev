@@ -19,6 +19,12 @@ html {
     --ie11-section-tracks: 85vw;
     /* Global Theme */
     --hover-colour: #FF496C;
+    /* Transitions */
+    --fill-trans: fill 0.5s;
+    --link-trans: color 0.5s, text-decoration-color 0.5s, border-color 0.5s;
+    --media-trans: transform 0.5s, opacity 0.5s, background-color 0.5s;
+    --background-trans: background-color 0.5s;
+    --ruler-trans: border-color 0.5s;
 }
 
 /* Prefers Light Theme */
@@ -40,7 +46,7 @@ html[data-theme="dark"] {
 }
 
 /* Prefers Dark Theme */
-
+/* is the light-theme redeclaration necessary? */
 @media (prefers-color-scheme: dark) {
     html, html[data-theme="dark"] {
         --tile-colour: #FFFFFF;
@@ -61,13 +67,13 @@ html[data-theme="dark"] {
 
 /* Delay Transitions */
 
-html[data-theme-loaded="true"] {
+/* html[data-theme-loaded="true"] {
     --fill-trans: fill 0.5s;
     --link-trans: color 0.5s, text-decoration-color 0.5s, border-color 0.5s;
     --media-trans: transform 0.5s, opacity 0.5s, background-color 0.5s;
     --background-trans: background-color 0.5s;
     --ruler-trans: border-color 0.5s;
-}
+} */
 
 /* IE11 VW Fix */
 

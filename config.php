@@ -3,5 +3,5 @@
     const IMG_DIR = "./dist/imgs/";
     const JS_DIR = "./dist/js/";
     const CSS_DIR = "./dist/css/";
-    const BASE_URL = "https://itt.dev";
+    const BASE_URL = "http://localhost:8500";
 ?>

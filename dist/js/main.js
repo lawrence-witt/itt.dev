@@ -65,28 +65,15 @@ function manageMaxVh() {
 /* THEME */
 const rootEl = document.documentElement;
 
-function setInitialTheme() {
-    const savedTheme = sessionStorage.getItem('theme');
-
-    window.requestAnimationFrame(function() {
-        rootEl.setAttribute("data-theme-loaded", false);
-        window.requestAnimationFrame(function() {
-            savedTheme && rootEl.setAttribute("data-theme", savedTheme);
-            window.requestAnimationFrame(function() {
-                rootEl.setAttribute("data-theme-loaded", true);
-            });
-        });
-    });
-};
-
 function manageTheme() {
     const themeButton = document.querySelector('button.theme');
 
     const changeTheme = function() {
-        const currTheme = rootEl.getAttribute("data-theme");
-        const nextTheme = !currTheme || currTheme === 'light' ? 'dark' : 'light';
+        const sunDisplay = getComputedStyle(document.querySelector('.sun')).display;
+        const nextTheme = sunDisplay === 'none' ? 'dark' : 'light';
+
         rootEl.setAttribute("data-theme", nextTheme);
-        sessionStorage.setItem('theme', nextTheme);
+        document.cookie = `theme=${nextTheme};`;
     };
 
     themeButton.addEventListener('click', changeTheme);
@@ -120,12 +107,7 @@ function watchForHover() {
 /* INITIATLISE */
 (function() {
     manageMaxVh();
-    setInitialTheme();
 })();
-
-window.addEventListener('pageshow', function() {
-    setInitialTheme();
-});
 
 window.addEventListener('DOMContentLoaded', function() {
     watchForHover();
