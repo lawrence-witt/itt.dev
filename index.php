@@ -12,7 +12,7 @@ require_once ROOT_DIR."/utils/formatFuncs.php";
 require_once ROOT_DIR."/utils/tmplFuncs.php";
 require_once ROOT_DIR."/utils/validRoute.php";
 
-$leaf = new Leaf\Core\Leaf();
+$app = new Leaf\App;
 
 /* 
 |   @route:     GET /
@@ -20,13 +20,16 @@ $leaf = new Leaf\Core\Leaf();
 |   @access:    Public
 */
 
-$leaf->get('/', function() use($viewData, $projectsData) {
+$app->get('/', function() use($app, $viewData, $projectsData) {
+    /* Theme */
+    $theme = getTheme($app->request);
 
     /* Layout */
     $layout = new Template('layout.phtml');
     $layout->page_styles = formatStyles($viewData->home->styles);
     $layout->page_desc = $viewData->home->desc;
     $layout->page_scripts = formatScripts($viewData->home->scripts);
+    $layout->theme = $theme;
 
     /* Content */
     $projects = genProjectsSection($projectsData);
@@ -41,13 +44,16 @@ $leaf->get('/', function() use($viewData, $projectsData) {
 |   @access:    Public
 */
 
-$leaf->get('/(\w+)', function($projectName) use($viewData, $projectsData) {
+$app->get('/(\w+)', function($projectName) use($app, $viewData, $projectsData) {
+    /* Check Route */
     $validProject = validRoute($projectName, $projectsData);
-
     if (!$validProject) {
         header("Location: ".BASE_URL);
         return;
     };
+
+    /* Theme */
+    $theme = getTheme($app->request);
 
     /* Layout */
     $layout = new Template('layout.phtml');
@@ -55,6 +61,7 @@ $leaf->get('/(\w+)', function($projectName) use($viewData, $projectsData) {
     $layout->page_tab = " | ".$validProject->name;
     $layout->page_title = "/ ".$validProject->name;
     $layout->page_desc = $validProject->desc;
+    $layout->theme = $theme;
 
     /* Content */
     $article = genArticleSection($validProject);
@@ -68,8 +75,8 @@ $leaf->get('/(\w+)', function($projectName) use($viewData, $projectsData) {
 |   @access:    Public
 */
 
-$leaf->set404(function () {
+$app->set404(function () {
     header("Location: ".BASE_URL);
 });
 
-$leaf->run();
+$app->run();

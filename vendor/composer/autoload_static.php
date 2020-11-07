@@ -19,20 +19,25 @@ class ComposerStaticInitd5cf02ab2b5a702b6bb2e484b31c909b
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
+            'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\Debug\\' => 24,
         ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'L' => 
         array (
-            'Leaf\\Veins\\' => 11,
             'Leaf\\' => 5,
         ),
         'I' => 
         array (
+            'Illuminate\\View\\' => 16,
             'Illuminate\\Support\\' => 19,
+            'Illuminate\\Filesystem\\' => 22,
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
@@ -65,25 +70,46 @@ class ComposerStaticInitd5cf02ab2b5a702b6bb2e484b31c909b
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
+        'Symfony\\Component\\Finder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
         'Psr\\SimpleCache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Leaf\\Veins\\' => 
+        'PHPMailer\\PHPMailer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/leafs/veins',
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Leaf\\' => 
         array (
-            0 => __DIR__ . '/..' . '/leafs/leaf/src',
+            0 => __DIR__ . '/..' . '/leafs/blade/src',
+            1 => __DIR__ . '/..' . '/leafs/leaf/src',
+        ),
+        'Illuminate\\View\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/view',
         ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
+        ),
+        'Illuminate\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/filesystem',
         ),
         'Illuminate\\Events\\' => 
         array (

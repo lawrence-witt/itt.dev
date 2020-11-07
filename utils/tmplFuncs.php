@@ -1,6 +1,20 @@
 <?php
 
 /* 
+|   @desc: Parse theme if one exists from request
+|   @param {object} request: The request object
+*/
+
+function getTheme($request) {
+    $cookies = $request->cookies();
+    if (isset($cookies["theme"])) {
+        return $cookies["theme"];
+    } else {
+        return "";
+    };
+}
+
+/* 
 |   @desc:  Generate markup for project cards
 |   @param {array} projectData: Array of data objects for each project
 */

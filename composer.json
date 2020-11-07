@@ -1,5 +1,5 @@
 {
     "require": {
-        "leafs/leaf": "^v1.x-dev"
+        "leafs/leaf": "^2.3"
     }
 }

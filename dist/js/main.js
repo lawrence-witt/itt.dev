@@ -65,6 +65,21 @@ function manageMaxVh() {
 /* THEME */
 const rootEl = document.documentElement;
 
+function confirmTheme() {
+    const rootTheme = rootEl.getAttribute("data-theme");
+    const themeCookie = document.cookie.split('; ').find(row => row.startsWith('theme'));
+    const parsedTheme = themeCookie ? themeCookie.split('=')[1] : null;
+
+    window.requestAnimationFrame(function() {
+        if (parsedTheme && parsedTheme !== rootTheme) {
+            rootEl.setAttribute("data-theme", parsedTheme);
+        };
+        window.requestAnimationFrame(function() {
+            rootEl.setAttribute("data-theme-loaded", true);
+        });
+    });
+};
+
 function manageTheme() {
     const themeButton = document.querySelector('button.theme');
 
@@ -73,7 +88,7 @@ function manageTheme() {
         const nextTheme = sunDisplay === 'none' ? 'dark' : 'light';
 
         rootEl.setAttribute("data-theme", nextTheme);
-        document.cookie = `theme=${nextTheme};`;
+        document.cookie = `theme=${nextTheme};SameSite=Lax`;
     };
 
     themeButton.addEventListener('click', changeTheme);
@@ -108,6 +123,10 @@ function watchForHover() {
 (function() {
     manageMaxVh();
 })();
+
+window.addEventListener('pageshow', function() {
+    confirmTheme();
+});
 
 window.addEventListener('DOMContentLoaded', function() {
     watchForHover();

@@ -1,0 +1,31 @@
+{
+    "name": "leafs/blade",
+    "description": "Leaf PHP Framework adaptation of jenssegers/blade package",
+    "keywords": ["leaf", "leafMVC", "laravel", "blade", "template", "view", "render"],
+    "homepage": "https://leaf-docs.netlify.com/v2.0/views/blade.html",
+    "license" : "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Michael Darko",
+            "email": "mickdd22@gmail.com",
+            "homepage": "https://mychi.netlify.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "illuminate/view": "^5.5|^6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0|^7.0",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Leaf\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
