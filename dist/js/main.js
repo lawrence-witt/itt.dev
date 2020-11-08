@@ -95,32 +95,6 @@ function manageTheme() {
     themeButton.addEventListener('click', changeTheme);
 };
 
-/* SCROLL RESTORE */
-
-function restoreScroll() {
-    const savedScrolls = JSON.parse(sessionStorage.getItem('savedScrolls'));
-    if (savedScrolls) {
-        const record = savedScrolls.find(function (scroll) { 
-            return scroll.location === window.location.href;
-        });
-        record && window.scrollTo({top: document.getElementById(record.target).offsetTop, behavior: 'smooth'});
-        const newScrolls = savedScrolls.filter(function (scroll) { 
-            return scroll.location !== window.location.href;
-        });
-        sessionStorage.setItem('savedScrolls', JSON.stringify(newScrolls));
-    }
-};
-
-function clearScroll() {
-    const savedScrolls = JSON.parse(sessionStorage.getItem('savedScrolls'));
-    if (savedScrolls) {
-        const newScrolls = savedScrolls.filter(function (scroll) { 
-            return scroll.location !== window.location.href 
-        });
-        sessionStorage.setItem('savedScrolls', JSON.stringify(newScrolls));
-    }
-};
-
 /* WATCH HOVER */
 
 function watchForHover() {
@@ -153,13 +127,8 @@ function watchForHover() {
     manageMaxVh();
 })();
 
-window.addEventListener('load', function() {
-    clearScroll();
-});
-
 window.addEventListener('pageshow', function() {
     confirmTheme();
-    restoreScroll();
 });
 
 window.addEventListener('DOMContentLoaded', function() {

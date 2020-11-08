@@ -55,53 +55,6 @@ function listenTileMouseOvers() {
     });
 };
 
-function listenProjectLink() {
-    /* Document Var */
-    const projLinks = document.querySelectorAll('.proj-link');
-
-    /* Assign Event Listeners */
-    projLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = e.currentTarget;
-
-            /* Event Functions */
-            const scrollToTop = function() {
-                window.scrollTo({top: 0, behavior: 'smooth'});
-            };
-            const changePage = function() {
-                window.location.href = target.href;
-            };
-            const debouncePageChange = function() {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(function() {
-                    changePage();
-                    window.removeEventListener('scroll', debouncePageChange);
-                    window.removeEventListener('wheel', overrideUserScroll);
-                }, 50);
-            };
-            const overrideUserScroll = function(wheelE) {
-                wheelE.preventDefault();
-                scrollToTop();
-            };
-
-            /* Change page when all scrolling stops */
-            let scrollTimeout;
-
-            window.addEventListener('scroll', debouncePageChange);
-            window.addEventListener('wheel', overrideUserScroll);
-
-            /* Initiate scroll */
-            if (window.pageYOffset > 0) {
-                scrollToTop();
-                saveScrollPosition(target.closest('.group').getAttribute('id'));
-            } else {
-                changePage();
-            };
-        });
-    });
-};
-
 /* SCROLL INTERACTIONS */
 
 function observeTilePositions() {
@@ -139,6 +92,5 @@ function observeTilePositions() {
     const supportsHover = !(matchMedia('(hover: none)').matches);
     
     listenProficiencyClick();
-    listenProjectLink();
     supportsHover ? listenTileMouseOvers() : observeTilePositions();
 })();
