@@ -1,3 +1,11 @@
+function saveScrollPosition(target) {
+    const newScroll = {target, location: window.location.href};
+    let savedScrolls = JSON.parse(sessionStorage.getItem('savedScrolls'));
+    savedScrolls = savedScrolls || [];
+    savedScrolls.splice(savedScrolls.length, 0, newScroll);
+    sessionStorage.setItem('savedScrolls', JSON.stringify(savedScrolls));
+}
+
 /* MOUSE INTERACTIONS */
 
 function listenProficiencyClick() {
@@ -84,7 +92,12 @@ function listenProjectLink() {
             window.addEventListener('wheel', overrideUserScroll);
 
             /* Initiate scroll */
-            window.pageYOffset > 0 ? scrollToTop() : changePage();
+            if (window.pageYOffset > 0) {
+                scrollToTop();
+                saveScrollPosition(target.closest('.group').getAttribute('id'));
+            } else {
+                changePage();
+            };
         });
     });
 };

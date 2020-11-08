@@ -1,6 +1,6 @@
 <section id="projects" class="projects">
     <?php foreach((array) $this->project_cards as $card): ?>
-        <div class="group <?= $card->id ?> <?= $card->last ?>">
+        <div id="<?= $card->id ?>" class="group <?= $card->id ?> <?= $card->last ?>">
             <header class="over-trigger">
                 <a class="proj-link" href="<?= $card->link ?>">
                     <p class="s-s">1.<?= $card->idx ?></p>

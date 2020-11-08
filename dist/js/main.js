@@ -63,11 +63,12 @@ function manageMaxVh() {
 };
 
 /* THEME */
+
 const rootEl = document.documentElement;
 
 function confirmTheme() {
     const rootTheme = rootEl.getAttribute("data-theme");
-    const themeCookie = document.cookie.split('; ').find(row => row.startsWith('theme'));
+    const themeCookie = document.cookie.split('; ').find(function (row) { return row.startsWith('theme') });
     const parsedTheme = themeCookie ? themeCookie.split('=')[1] : null;
 
     window.requestAnimationFrame(function() {
@@ -88,13 +89,40 @@ function manageTheme() {
         const nextTheme = sunDisplay === 'none' ? 'dark' : 'light';
 
         rootEl.setAttribute("data-theme", nextTheme);
-        document.cookie = `theme=${nextTheme};SameSite=Lax`;
+        document.cookie = 'theme='+nextTheme+';SameSite=Lax';
     };
 
     themeButton.addEventListener('click', changeTheme);
 };
 
+/* SCROLL RESTORE */
+
+function restoreScroll() {
+    const savedScrolls = JSON.parse(sessionStorage.getItem('savedScrolls'));
+    if (savedScrolls) {
+        const record = savedScrolls.find(function (scroll) { 
+            return scroll.location === window.location.href;
+        });
+        record && window.scrollTo({top: document.getElementById(record.target).offsetTop, behavior: 'smooth'});
+        const newScrolls = savedScrolls.filter(function (scroll) { 
+            return scroll.location !== window.location.href;
+        });
+        sessionStorage.setItem('savedScrolls', JSON.stringify(newScrolls));
+    }
+};
+
+function clearScroll() {
+    const savedScrolls = JSON.parse(sessionStorage.getItem('savedScrolls'));
+    if (savedScrolls) {
+        const newScrolls = savedScrolls.filter(function (scroll) { 
+            return scroll.location !== window.location.href 
+        });
+        sessionStorage.setItem('savedScrolls', JSON.stringify(newScrolls));
+    }
+};
+
 /* WATCH HOVER */
+
 function watchForHover() {
     // lastTouchTime is used for ignoring emulated mousemove events
     let lastTouchTime = 0;
@@ -120,12 +148,18 @@ function watchForHover() {
 }
 
 /* INITIATLISE */
+
 (function() {
     manageMaxVh();
 })();
 
+window.addEventListener('load', function() {
+    clearScroll();
+});
+
 window.addEventListener('pageshow', function() {
     confirmTheme();
+    restoreScroll();
 });
 
 window.addEventListener('DOMContentLoaded', function() {
