@@ -5,8 +5,8 @@
         "desc": "Audio player and recorder with server-side storage and authentication",
         "project_img": "dictm-square.jpg",
         "links": [
-            {"name": "View Site", "src": ""},
-            {"name": "View Source", "src": ""}
+            {"name": "View Site", "src": "https://dictm.itt.dev"},
+            {"name": "View Source", "src": "https://github.com/lawrence-witt/Dictm"}
         ],
         "techs": [
             "React", "Redux", "Styled Components", "Web Audio API", "Node.js", "Express", "MongoDB", "NGINX"
@@ -23,7 +23,7 @@
         "desc": "Developer portfolio showcasing my current skillset",
         "project_img": "portfolio-square.jpg",
         "links": [
-            {"name": "View Source", "src": ""}
+            {"name": "View Source", "src": "https://github.com/lawrence-witt/itt.dev"}
         ],
         "techs": [
             "HTML", "CSS", "Javascript", "PHP", "NGINX"
@@ -40,8 +40,8 @@
         "desc": "3-D visualiser for exploring and editing mutli-dimensional arrays",
         "project_img": "strange-square.jpg",
         "links": [
-            {"name": "View Site", "src": ""},
-            {"name": "View Source", "src": ""}
+            {"name": "View Site", "src": "https://strangearray.itt.dev"},
+            {"name": "View Source", "src": "https://github.com/lawrence-witt/StrangeArray"}
         ],
         "techs": [
             "React", "Redux", "CSS", "Three.js", "NGINX"
@@ -58,7 +58,7 @@
         "desc": "Sleek, minimalist artist portfolio built on top of the WordPress API",
         "project_img" : "hebden-square.jpg",
         "links": [
-            {"name": "View Site", "src": "https://www.annhebdenceramics.co.uk"}
+            {"name": "View Site", "src": "https://annhebdenceramics.co.uk"}
         ],
         "techs": [
             "React", "CSS", "WordPress", "Amazon Web Services", "Apache"

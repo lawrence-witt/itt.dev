@@ -17,8 +17,14 @@ section.splash .title {
     -ms-grid-row: 1;
 }
 
+section.splash .title a {
+    display: block;
+    width: min-content;
+}
+
 section.splash .title h1 {
     line-height: var(--p-line-height);
+    width: max-content;
 }
 
 section.splash .subtitle {
