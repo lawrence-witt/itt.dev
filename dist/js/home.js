@@ -1,11 +1,3 @@
-function saveScrollPosition(target) {
-    const newScroll = {target, location: window.location.href};
-    let savedScrolls = JSON.parse(sessionStorage.getItem('savedScrolls'));
-    savedScrolls = savedScrolls || [];
-    savedScrolls.splice(savedScrolls.length, 0, newScroll);
-    sessionStorage.setItem('savedScrolls', JSON.stringify(savedScrolls));
-}
-
 /* MOUSE INTERACTIONS */
 
 function listenProficiencyClick() {
