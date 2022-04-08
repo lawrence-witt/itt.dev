@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 
+import MatrixLogo from "components/atoms/MatrixLogo";
 import Typography from "components/atoms/Typography";
 
 const Home: NextPage = () => {
   return (
-    <div style={{ background: "black" }}>
-      <Typography variant="h2">Hello World!</Typography>
+    <div style={{ background: "black", height: "100vh", width: "100%" }}>
+      <MatrixLogo />
     </div>
   );
 };
