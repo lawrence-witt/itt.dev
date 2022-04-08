@@ -1,21 +1,18 @@
-import { createTypedStyles } from "utils/providers/ThemeProvider";
+import { makeStyles } from "utils/providers/ThemeProvider";
 
 import { MatrixLogoProps } from "./MatrixLogo.types";
 
-const useStyles = createTypedStyles()(
-  (theme) => ({
-    root: {
-      width: "100%",
-    },
-    textPrimaryLetter: { fill: theme.palette.text.primary },
-    primaryLetter: { fill: theme.palette.primary.main },
-    greyLetter: { fill: theme.palette.common.grey },
-  }),
-  { name: "MatrixLogo" }
-);
+const useStyles = makeStyles({ name: "MatrixLogo" })((theme) => ({
+  root: {
+    width: "100%",
+  },
+  textPrimaryLetter: { fill: theme.palette.text.primary },
+  primaryLetter: { fill: theme.palette.primary.main },
+  greyLetter: { fill: theme.palette.common.grey },
+}));
 
 export const MatrixLogo: React.FC<MatrixLogoProps> = (props) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <svg

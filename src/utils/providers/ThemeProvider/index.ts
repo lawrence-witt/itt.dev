@@ -1,6 +1,7 @@
 export {
   ThemeProvider as default,
-  useTheme,
-  createTypedStyles,
+  useThemeContext,
+  makeStyles,
 } from "./ThemeProvider";
+
 export * from "./types";

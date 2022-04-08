@@ -1,41 +1,36 @@
 import React from "react";
-import {
-  ThemeProvider as JSSThemeProvider,
-  useTheme as JSSuseTheme,
-} from "react-jss";
+import { createMakeStyles } from "tss-react";
 
-import createTypedUseStyles from "utils/functions/createTypedUseStyles";
-
-import { defaultTheme } from "./theme";
-import { Theme, Controller } from "./types";
+import { theme } from "./theme";
+import { Controller } from "./types";
 
 const ThemeContext = React.createContext(
   null
 ) as React.Context<Controller | null>;
 
-export const useTheme = () => {
-  const theme = JSSuseTheme<Theme>();
+export const useThemeContext = () => {
   const controller = React.useContext(ThemeContext);
-  if (!controller || !theme)
-    throw new Error("useTheme must be placed in a child of ThemeProvider.");
-  return { theme, controller };
+  if (!controller)
+    throw new Error("useTheme must be a child component of ThemeProvider.");
+  return { controller, theme };
 };
 
-export const createTypedStyles = createTypedUseStyles<Theme>();
+const useTheme = () => theme;
+
+export const { makeStyles } = createMakeStyles({ useTheme });
 
 export const ThemeProvider: React.FCWithChildren = ({ children }) => {
-  const setScheme = React.useCallback((type: "light" | "dark") => type, []);
+  const [scheme, setScheme] = React.useState<"light" | "dark">("dark");
 
-  const controller = React.useMemo(
+  const value = React.useMemo(
     () => ({
+      scheme,
       setScheme,
     }),
-    [setScheme]
+    [scheme, setScheme]
   );
 
   return (
-    <ThemeContext.Provider value={controller}>
-      <JSSThemeProvider theme={defaultTheme}>{children}</JSSThemeProvider>
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 };

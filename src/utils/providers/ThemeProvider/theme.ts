@@ -99,7 +99,7 @@ export const utilities = {
   fade: (hex: string, alpha: number) => hexToRGBA(hex, alpha, true),
 };
 
-export const defaultTheme = {
+export const theme = {
   palette: palettes.dark,
   transitions,
   typography,

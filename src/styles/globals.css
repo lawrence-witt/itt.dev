@@ -16,6 +16,10 @@ p {
   margin: 0;
 }
 
+p {
+  cursor: text;
+}
+
 a {
   text-decoration: none;
 }
