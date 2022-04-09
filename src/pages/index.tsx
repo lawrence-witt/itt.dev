@@ -18,11 +18,16 @@ const useStyles = makeStyles({ name: "Home" })((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    scrollSnapAlign: "start",
   },
   matrixLogo: {
     maxWidth: 500,
   },
-  pageContainer: {},
+  pageContainer: {
+    scrollSnapAlign: "start",
+    display: "flex",
+    flexDirection: "column",
+  },
   title: {
     fontSize: `clamp(${theme.typography.h3.fontSize}, 9vw, ${theme.typography.h1.fontSize})`,
     lineHeight: `1.5em`,
