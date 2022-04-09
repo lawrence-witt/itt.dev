@@ -5,7 +5,7 @@ import Typography from "components/atoms/Typography";
 
 const Home: NextPage = () => {
   return (
-    <div style={{ background: "black", height: "100vh", width: "100%" }}>
+    <div style={{ height: "100vh", width: "100%" }}>
       <MatrixLogo />
     </div>
   );

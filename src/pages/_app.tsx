@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 
 import ThemeProvider from "utils/providers/ThemeProvider";
 
-import "../styles/globals.css";
+import GlobalStyles from "styles/GlobalStyles";
 
 function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
+      <GlobalStyles />
       <Component {...pageProps} />
     </ThemeProvider>
   );
