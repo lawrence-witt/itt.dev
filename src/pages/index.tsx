@@ -1,6 +1,8 @@
+import React from "react";
 import type { NextPage } from "next";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
+import useForcedScroll from "utils/hooks/useForcedScroll";
 
 import LayoutContain from "components/atoms/LayoutContain";
 import LayoutPage from "components/atoms/LayoutPage";
@@ -9,6 +11,7 @@ import MatrixLogo from "components/atoms/MatrixLogo";
 import Typography from "components/atoms/Typography";
 import LinkText from "components/atoms/LinkText";
 
+import Header from "components/molecules/Header";
 import Footer from "components/molecules/Footer";
 
 const useStyles = makeStyles({ name: "Home" })((theme) => ({
@@ -18,13 +21,11 @@ const useStyles = makeStyles({ name: "Home" })((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    scrollSnapAlign: "start",
   },
   matrixLogo: {
     maxWidth: 500,
   },
   pageContainer: {
-    scrollSnapAlign: "start",
     display: "flex",
     flexDirection: "column",
   },
@@ -51,17 +52,75 @@ const useStyles = makeStyles({ name: "Home" })((theme) => ({
     flexDirection: "column",
     gap: theme.spacing(3),
   },
+  header: {
+    transform: "translateY(-100%)",
+    transition: `transform ${theme.transitions.easeInOut}`,
+  },
+  headerVisible: {
+    transform: "translateY(0%)",
+  },
 }));
 
 const Home: NextPage = () => {
   const { classes, cx } = useStyles();
 
+  const forceScroll = useForcedScroll();
+
+  const [headerVisible, setHeaderVisible] = React.useState(false);
+
+  const splashRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
+  const pageRef = React.useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  const scrollSplash = React.useCallback(
+    () => forceScroll(splashRef.current),
+    [forceScroll]
+  );
+
+  const scrollPage = React.useCallback(
+    () => forceScroll(pageRef.current),
+    [forceScroll]
+  );
+
+  React.useEffect(() => {
+    const splashObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setHeaderVisible(false);
+          scrollSplash();
+        }
+      },
+      { threshold: 0.01 }
+    );
+    const pageObserver = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setHeaderVisible(true);
+          scrollPage();
+        }
+      },
+      { threshold: 0.01 }
+    );
+
+    splashObserver.observe(splashRef.current);
+    pageObserver.observe(pageRef.current);
+
+    return () => {
+      splashObserver.disconnect();
+      pageObserver.disconnect();
+    };
+  }, [scrollSplash, scrollPage]);
+
   return (
     <>
-      <LayoutContain className={classes.matrixContainer}>
+      <LayoutContain className={classes.matrixContainer} ref={splashRef}>
         <MatrixLogo className={classes.matrixLogo} />
       </LayoutContain>
-      <div className={classes.pageContainer}>
+      <Header
+        classes={{
+          root: cx(classes.header, { [classes.headerVisible]: headerVisible }),
+        }}
+      />
+      <main className={classes.pageContainer} ref={pageRef}>
         <LayoutPage>
           <Typography variant="h1" className={cx(classes.title, "mb-3")}>
             Hi, I&apos;m Lawrence. 👋
@@ -77,7 +136,7 @@ const Home: NextPage = () => {
             </Typography>{" "}
             developer with a passion for building modern, performant utilities.
           </Typography>
-          <div className={cx(classes.detailContainer, "mb-8")}>
+          <section className={cx(classes.detailContainer, "mb-8")}>
             <LabelledComponent label="Location">
               <Typography component="p" variant="h5" color="textSecondary">
                 Canterbury, UK
@@ -98,9 +157,9 @@ const Home: NextPage = () => {
                 Roasted Veggie Pizza
               </Typography>
             </LabelledComponent>
-          </div>
-          <div className={cx(classes.skillsContainer, "mb-8")}></div>
-          <div className={classes.actionsContainer}>
+          </section>
+          <section className={cx(classes.skillsContainer, "mb-8")}></section>
+          <section className={classes.actionsContainer}>
             <Typography component="p" variant="h5">
               Come take a look at what I&apos;ve been{" "}
               <LinkText href="/projects" variant="h5">
@@ -122,10 +181,10 @@ const Home: NextPage = () => {
               </LinkText>{" "}
               - I don&apos;t bite!
             </Typography>
-          </div>
+          </section>
         </LayoutPage>
         <Footer />
-      </div>
+      </main>
     </>
   );
 };

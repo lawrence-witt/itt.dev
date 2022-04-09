@@ -1,9 +1,12 @@
-import hexToRGBA from "utils/functions/hexToRGBA";
+import parseRGBAString from "utils/functions/parseRGBAString";
+import writeRGBAString from "utils/functions/writeRGBAString";
+
 import {
   mediaBetween,
   mediaMaxWidth,
   mediaMinWidth,
 } from "utils/functions/getMediaQuery";
+
 import * as types from "./types";
 
 export const palettes = {
@@ -96,7 +99,10 @@ export const zIndex = {
 export const utilities = {
   spacing: (...nums: number[]): string =>
     nums.map((n) => `${8 * n}px`).join(" "),
-  fade: (hex: string, alpha: number) => hexToRGBA(hex, alpha, true),
+  fade: (rgba: string, alpha: number) => {
+    const [r, g, b] = parseRGBAString(rgba);
+    return writeRGBAString(r, g, b, alpha);
+  },
 };
 
 export const theme = {
