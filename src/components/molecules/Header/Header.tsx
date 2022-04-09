@@ -24,6 +24,7 @@ const useStyles = makeStyles({ name: "Header" })((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  title: { textDecoration: "none" },
   nav: {},
   navList: {
     display: "flex",
@@ -56,17 +57,24 @@ export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <header className={mClasses.root}>
       <LayoutContain className={mClasses.container}>
-        <Typography variant="h3">w.itt</Typography>
+        <LinkText
+          href="/"
+          color="textPrimary"
+          variant="h3"
+          className={mClasses.title}
+        >
+          w.itt
+        </LinkText>
         <nav>
           <ul className={mClasses.navList}>
             <li>
               <LinkText
                 color="textPrimary"
-                href="/"
+                href="/about"
                 className={mClasses.navLink}
                 activeClass={mClasses.navLinkActive}
               >
-                home
+                about
               </LinkText>
             </li>
             <li>
