@@ -12,12 +12,14 @@ const useStyles = makeStyles({ name: "MatrixLogo" })((theme) => ({
 }));
 
 export const MatrixLogo: React.FC<MatrixLogoProps> = (props) => {
-  const { classes } = useStyles();
+  const { className } = props;
+
+  const { classes, cx } = useStyles();
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={classes.root}
+      className={cx(classes.root, className)}
       viewBox="0 0 105.83333 83.547199"
     >
       <g transform="translate(0,-191.16664)">

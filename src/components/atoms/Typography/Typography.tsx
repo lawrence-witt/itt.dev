@@ -75,9 +75,15 @@ export const Typography: PolymorphicComponentWithRef<
   return (
     <Component
       ref={ref}
-      className={cx(className, classes.root, classes[variant], classes[color], {
-        [classes.noWrap]: noWrap,
-      })}
+      className={cx(
+        classes.root,
+        classes[variant],
+        classes[color],
+        {
+          [classes.noWrap]: noWrap,
+        },
+        className
+      )}
       {...rest}
     />
   );

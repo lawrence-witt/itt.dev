@@ -11,15 +11,14 @@ export const GlobalStyles: React.FC = () => {
         html: {
           fontFamily: `Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
           background: theme.palette.background.page,
+          scrollSnapType: "y mandatory",
+          scrollBehavior: "smooth",
         },
         "h1, h2, h3, h4, h5, h6, p": {
           margin: 0,
         },
         p: {
           cursor: "text",
-        },
-        a: {
-          textDecoration: "none",
         },
         ul: {
           margin: 0,
@@ -32,6 +31,12 @@ export const GlobalStyles: React.FC = () => {
           cursor: "pointer",
           padding: "unset",
           color: "inherit",
+        },
+        ".mb-3": {
+          marginBottom: theme.spacing(3),
+        },
+        ".mb-8": {
+          marginBottom: theme.spacing(8),
         },
       }}
     />

@@ -1,1 +1,3 @@
-export interface MatrixLogoProps {}
+export interface MatrixLogoProps {
+  className?: string;
+}
