@@ -30,6 +30,9 @@ export const GlobalStyles: React.FC = () => {
           padding: "unset",
           color: "inherit",
         },
+        ".mb-1": {
+          marginBottom: theme.spacing(1),
+        },
         ".mb-3": {
           marginBottom: theme.spacing(3),
         },

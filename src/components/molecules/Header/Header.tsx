@@ -3,7 +3,6 @@ import { useMergedClasses } from "tss-react";
 import { makeStyles } from "utils/providers/ThemeProvider";
 
 import LayoutContain from "components/atoms/LayoutContain";
-import Typography from "components/atoms/Typography";
 import LinkText from "components/atoms/LinkText";
 
 import { HeaderProps } from "./Header.types";

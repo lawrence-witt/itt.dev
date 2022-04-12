@@ -9,6 +9,7 @@ const useStyles = makeStyles<types.IconStyleProps>({ name: "Icon" })(
     root: {
       transform: rotation !== 0 ? `rotateZ(${rotation}deg)` : `rotateZ(0deg)`,
       transition: "transform 0.3s ease-in-out",
+      fill: "currentcolor",
     },
     sm: {
       width: 24,

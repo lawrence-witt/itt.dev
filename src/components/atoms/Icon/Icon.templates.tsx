@@ -47,6 +47,13 @@ export const LinkedInIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
+export const ExternalLinkIcon: React.FC<IconProps> = (props) => (
+  <Icon {...props}>
+    <path d="M13 3L16.293 6.293 9.293 13.293 10.707 14.707 17.707 7.707 21 11 21 3z" />
+    <path d="M19,19H5V5h7l-2-2H5C3.897,3,3,3.897,3,5v14c0,1.103,0.897,2,2,2h14c1.103,0,2-0.897,2-2v-5l-2-2V19z" />
+  </Icon>
+);
+
 /*
  *   Chevron
  */
@@ -65,6 +72,16 @@ export const ChevronCircleIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path d="M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10c5.514,0,10-4.486,10-10S17.514,2,12,2z M12,20c-4.411,0-8-3.589-8-8 s3.589-8,8-8s8,3.589,8,8S16.411,20,12,20z" />
     <path d="M12 13.586L7.707 9.293 6.293 10.707 12 16.414 17.707 10.707 16.293 9.293z" />
+  </Icon>
+);
+
+/*
+ *  Circle
+ */
+
+export const CircleIcon: React.FC<IconProps> = (props) => (
+  <Icon {...props}>
+    <path d="M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z" />
   </Icon>
 );
 
