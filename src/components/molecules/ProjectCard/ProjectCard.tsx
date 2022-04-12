@@ -7,6 +7,11 @@ import { CircleIcon, ExternalLinkIcon } from "components/atoms/Icon";
 import { ProjectCardProps } from "./ProjectCard.types";
 
 const useStyles = makeStyles({ name: "ProjectCard" })((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
   heading: {
     display: "flex",
     alignItems: "center",
@@ -35,23 +40,25 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
   const { classes } = useStyles();
 
   return (
-    <Card component="article">
-      <div className={classes.heading}>
-        <Typography variant="h4" noWrap className="mb-1">
-          {title}
+    <Card component="article" className={classes.root}>
+      <div>
+        <div className={classes.heading}>
+          <Typography variant="h4" noWrap className="mb-1">
+            {title}
+          </Typography>
+          <a
+            className={classes.repoLink}
+            href={repositoryURL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <ExternalLinkIcon variant="sm" />
+          </a>
+        </div>
+        <Typography color="textTertiary" className="mb-3">
+          {description}
         </Typography>
-        <a
-          className={classes.repoLink}
-          href={repositoryURL}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <ExternalLinkIcon variant="sm" />
-        </a>
       </div>
-      <Typography color="textTertiary" className="mb-3">
-        {description}
-      </Typography>
       {technologies.length > 0 && (
         <ul className={classes.techList}>
           {technologies.map(({ name, color }) => (

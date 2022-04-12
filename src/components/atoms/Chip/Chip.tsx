@@ -5,27 +5,32 @@ import { PolymorphicComponentWithRef } from "utils/types/PolymorphicComponent";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
 
-import { CardProps } from "./Card.types";
+import Typography from "components/atoms/Typography";
 
-const useStyles = makeStyles({ name: "Card" })((theme) => ({
+import { ChipProps } from "./Chip.types";
+
+const useStyles = makeStyles({ name: "Chip" })((theme) => ({
   root: {
-    padding: theme.spacing(2),
-    background: theme.palette.background.card,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
+    padding: theme.spacing(0.5, 1.5),
   },
+  text: {},
 }));
 
 export type Classes = ReturnType<typeof useStyles>["classes"];
 
 const defaultComponent = "div";
 
-export const Card: PolymorphicComponentWithRef<
-  CardProps,
+export const Chip: PolymorphicComponentWithRef<
+  ChipProps,
   typeof defaultComponent
-> = React.forwardRef(function Card(props, ref: any) {
+> = React.forwardRef(function Chip(props, ref: any) {
   const {
     component: Component = defaultComponent,
-    children,
+    text,
     className,
     classes,
     ...rest
@@ -37,7 +42,11 @@ export const Card: PolymorphicComponentWithRef<
 
   return (
     <Component className={cx(mClasses.root, className)} ref={ref} {...rest}>
-      {children}
+      {text && (
+        <Typography className={mClasses.text} variant="body2">
+          {text}
+        </Typography>
+      )}
     </Component>
   );
 });

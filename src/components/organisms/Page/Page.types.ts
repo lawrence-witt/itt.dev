@@ -1,1 +1,5 @@
-export interface PageProps {}
+import { Classes } from "./Page";
+
+export interface PageProps {
+  classes?: Partial<Classes>;
+}

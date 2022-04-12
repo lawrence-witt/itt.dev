@@ -6,18 +6,20 @@ import { makeStyles, Breakpoints } from "utils/providers/ThemeProvider";
 
 import { LayoutContainProps } from "./LayoutContain.types";
 
-const useStyles = makeStyles<{ size: Breakpoints }>()((theme, { size }) => ({
-  root: {
-    width: "100%",
-    maxWidth: theme.breakpoints.values[size],
-    margin: "auto",
-    padding: theme.spacing(0, 2),
+const useStyles = makeStyles<{ size: Breakpoints }>({ name: "LayoutContain" })(
+  (theme, { size }) => ({
+    root: {
+      width: "100%",
+      maxWidth: theme.breakpoints.values[size],
+      margin: "auto",
+      padding: theme.spacing(0, 2),
 
-    [theme.breakpoints.up("sm")]: {
-      padding: theme.spacing(0, 4),
+      [theme.breakpoints.up("sm")]: {
+        padding: theme.spacing(0, 4),
+      },
     },
-  },
-}));
+  })
+);
 
 const defaultComponent = "div";
 
