@@ -2,7 +2,7 @@ import { TextInputProps } from "../TextInput";
 
 import { TextFieldClasses } from "./TextField";
 
-export type TextFieldValidator = (value: string) => string | undefined;
+export type TextFieldValidator = (value: string) => string | false | undefined;
 
 export type TextFieldProps<T extends boolean> = Omit<
   TextInputProps<T>,
@@ -12,6 +12,9 @@ export type TextFieldProps<T extends boolean> = Omit<
   textInputClasses?: TextInputProps<T>["classes"];
   name: string;
   value: string | number;
-  onChange: (event: React.ChangeEvent, hasErrors: boolean) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    hasErrors: boolean
+  ) => void;
   validators?: TextFieldValidator[];
 };

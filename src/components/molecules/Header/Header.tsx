@@ -31,12 +31,6 @@ const useStyles = makeStyles({ name: "Header" })((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  navLink: {
-    textDecoration: "none",
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
   navLinkActive: {
     color: theme.palette.primary.main,
     "&:hover": {
@@ -70,7 +64,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
               <LinkText
                 color="textPrimary"
                 href="/about"
-                className={mClasses.navLink}
                 activeClass={mClasses.navLinkActive}
               >
                 about
@@ -80,7 +73,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
               <LinkText
                 color="textPrimary"
                 href="/projects"
-                className={mClasses.navLink}
                 activeClass={mClasses.navLinkActive}
               >
                 projects
@@ -90,7 +82,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
               <LinkText
                 color="textPrimary"
                 href="/contact"
-                className={mClasses.navLink}
                 activeClass={mClasses.navLinkActive}
               >
                 contact
@@ -100,7 +91,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
               <LinkText
                 color="textPrimary"
                 href="/blog"
-                className={mClasses.navLink}
                 activeClass={mClasses.navLinkActive}
               >
                 blog

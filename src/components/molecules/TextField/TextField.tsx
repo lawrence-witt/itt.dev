@@ -10,7 +10,9 @@ import TextInput, { TextInputProps } from "components/molecules/TextInput";
 import { TextFieldProps, TextFieldValidator } from "./TextField.types";
 
 const useStyles = makeStyles({ name: "TextField" })((theme) => ({
-  root: {},
+  root: {
+    width: "100%",
+  },
   invalidInput: {
     border: `1px solid ${theme.palette.error.main}`,
   },
@@ -48,7 +50,10 @@ export const TextField = <T extends boolean = false>(
   const mapValidators = React.useCallback(
     (value: string, validators: TextFieldValidator[]) => {
       return validators.flatMap((validator) => {
-        return ((r) => (typeof r !== "string" ? [] : r))(validator(value));
+        return ((r) =>
+          typeof r !== "string" || r.trim().length === 0 ? [] : r)(
+          validator(value)
+        );
       });
     },
     []
@@ -74,6 +79,7 @@ export const TextField = <T extends boolean = false>(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const _errors = mapValidators(event.target.value, validators);
       setErrors(_errors);
+      if (_errors.length === 0) setShowErrors(false);
       onChange(event, _errors.length > 0);
     },
     [onChange, mapValidators, validators]
@@ -82,9 +88,11 @@ export const TextField = <T extends boolean = false>(
   const mergedInputBaseClasses = React.useMemo(
     () => ({
       ...inputBaseClasses,
-      root: cx(inputBaseClasses?.root, { [mClasses.invalidInput]: hasErrors }),
+      root: cx(inputBaseClasses?.root, {
+        [mClasses.invalidInput]: hasErrors && showErrors,
+      }),
     }),
-    [cx, inputBaseClasses, mClasses.invalidInput, hasErrors]
+    [cx, inputBaseClasses, mClasses.invalidInput, hasErrors, showErrors]
   );
 
   return (

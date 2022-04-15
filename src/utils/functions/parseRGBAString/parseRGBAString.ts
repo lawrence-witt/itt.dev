@@ -14,7 +14,7 @@ export const parseRGBAString = (str: string): RGBATuple => {
     ];
 
   const rgbaMatch = str.match(
-    /^rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i
+    /^rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(0|0\.\d+?|1)\s*\)$/i
   );
 
   if (!rgbaMatch) {
@@ -26,6 +26,6 @@ export const parseRGBAString = (str: string): RGBATuple => {
     parseInt(rgbaMatch[1]),
     parseInt(rgbaMatch[2]),
     parseInt(rgbaMatch[3]),
-    parseInt(rgbaMatch[4]),
+    parseFloat(parseFloat(rgbaMatch[4]).toFixed(2)),
   ];
 };

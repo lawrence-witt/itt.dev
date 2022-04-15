@@ -91,7 +91,7 @@ const useStyles = makeStyles({ name: "Projects" })((theme) => ({
 
     [theme.breakpoints.up("md")]: {
       gridTemplateColumns: "1fr",
-      minWidth: 360,
+      minWidth: theme.spacing(45),
     },
   },
   eventsContainer: {

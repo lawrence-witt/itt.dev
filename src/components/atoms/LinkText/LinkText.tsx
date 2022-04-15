@@ -1,10 +1,20 @@
 import { useRouter } from "next/router";
-import { useCssAndCx } from "tss-react";
+
+import { makeStyles } from "utils/providers/ThemeProvider";
 
 import Typography from "components/atoms/Typography";
 import LinkBase from "../LinkBase";
 
 import * as types from "./LinkText.types";
+
+const useStyles = makeStyles({ name: "LinkText" })((theme) => ({
+  root: {
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
+}));
 
 export const LinkText: React.FC<types.LinkTextProps> = (props) => {
   const {
@@ -16,13 +26,14 @@ export const LinkText: React.FC<types.LinkTextProps> = (props) => {
     ...rest
   } = props;
 
-  const { cx } = useCssAndCx();
+  const { classes, cx } = useStyles();
 
   const { pathname } = useRouter();
 
   return (
     <LinkBase
       className={cx(
+        classes.root,
         className,
         activeClass && { [activeClass]: pathname === href }
       )}
