@@ -7,7 +7,7 @@ import LayoutContain from "components/atoms/LayoutContain";
 
 import MatrixLogo from "components/atoms/MatrixLogo";
 
-const useStyles = makeStyles({ name: "Home" })((theme) => ({
+const useStyles = makeStyles({ name: "HomePage" })((theme) => ({
   matrixContainer: {
     height: "100vh",
     width: "100%",

@@ -19,7 +19,7 @@ const stackOverflowProfile =
   process.env.NEXT_PUBLIC_STACKOVERFLOW_PROFILE || "";
 const linkedInProfile = process.env.NEXT_PUBLIC_LINKEDIN_PROFILE || "";
 
-const useStyles = makeStyles({ name: "Contact" })((theme) => ({
+const useStyles = makeStyles({ name: "ContactPage" })((theme) => ({
   page: {
     display: "flex",
     flexDirection: "column",

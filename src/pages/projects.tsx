@@ -70,7 +70,7 @@ const demoEvents = [
   },
 ];
 
-const useStyles = makeStyles({ name: "Projects" })((theme) => ({
+const useStyles = makeStyles({ name: "ProjectsPage" })((theme) => ({
   page: {
     display: "flex",
     flexDirection: "column",

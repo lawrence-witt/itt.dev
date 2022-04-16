@@ -8,7 +8,7 @@ import LabelledComponent from "components/atoms/LabelledComponent";
 
 import Page from "components/organisms/Page";
 
-const useStyles = makeStyles({ name: "Home" })((theme) => ({
+const useStyles = makeStyles({ name: "AboutPage" })((theme) => ({
   title: {
     fontSize: `clamp(${theme.typography.h3.fontSize}, 9vw, ${theme.typography.h1.fontSize})`,
     lineHeight: `1.5em`,

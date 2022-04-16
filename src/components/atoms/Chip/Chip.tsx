@@ -33,6 +33,7 @@ export const Chip: PolymorphicComponentWithRef<
     text,
     className,
     classes,
+    children,
     ...rest
   } = props;
 
@@ -47,6 +48,7 @@ export const Chip: PolymorphicComponentWithRef<
           {text}
         </Typography>
       )}
+      {!text && children}
     </Component>
   );
 });
