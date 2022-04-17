@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   return (
     <header className={mClasses.root}>
-      <LayoutContain className={mClasses.container}>
+      <LayoutContain classes={{ wrapper: mClasses.container }}>
         <LinkText
           href="/"
           color="textPrimary"

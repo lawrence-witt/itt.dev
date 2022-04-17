@@ -25,7 +25,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <LayoutContain className={classes.matrixContainer}>
+      <LayoutContain classes={{ wrapper: classes.matrixContainer }}>
         <MatrixLogo className={classes.matrixLogo} />
       </LayoutContain>
     </>

@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
   }, []);
 
   return (
-    <LayoutContain className={classes.root} component="footer">
+    <LayoutContain classes={{ wrapper: classes.root }} component="footer">
       <Typography>© w.itt 2021-{new Date(Date.now()).getFullYear()}</Typography>
       <IconButton variant="sm" onClick={returnToTop}>
         <ChevronCircleIcon rotation={180} />
