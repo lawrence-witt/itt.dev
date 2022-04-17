@@ -13,11 +13,10 @@ import {
 import Page from "components/organisms/Page";
 import ContactForm from "components/organisms/ContactForm";
 
-const emailLink = process.env.NEXT_PUBLIC_EMAIL_LINK || "";
-const githubProfile = process.env.NEXT_PUBLIC_GITHUB_PROFILE || "";
-const stackOverflowProfile =
-  process.env.NEXT_PUBLIC_STACKOVERFLOW_PROFILE || "";
-const linkedInProfile = process.env.NEXT_PUBLIC_LINKEDIN_PROFILE || "";
+const emailLink = process.env.NEXT_PUBLIC_EMAIL_LINK;
+const githubProfile = process.env.NEXT_PUBLIC_GITHUB_PROFILE;
+const stackOverflowProfile = process.env.NEXT_PUBLIC_STACKOVERFLOW_PROFILE;
+const linkedInProfile = process.env.NEXT_PUBLIC_LINKEDIN_PROFILE;
 
 const useStyles = makeStyles({ name: "ContactPage" })((theme) => ({
   page: {

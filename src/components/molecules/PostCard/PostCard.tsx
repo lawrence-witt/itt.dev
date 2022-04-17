@@ -4,12 +4,12 @@ import Image from "next/image";
 import { makeStyles, useThemeContext } from "utils/providers/ThemeProvider";
 import useStrapiApi from "utils/hooks/useStrapiApi";
 import useMatchMedia from "utils/hooks/useMatchMedia";
-import formatDate from "utils/functions/formatDate";
 
 import LinkText from "components/atoms/LinkText";
 import LinkBase from "components/atoms/LinkBase";
 import Typography from "components/atoms/Typography";
-import Chip from "components/atoms/Chip";
+
+import PostDetails from "../PostDetails";
 
 import { PostCardProps } from "./PostCard.types";
 
@@ -72,23 +72,6 @@ const useStyles = makeStyles({ name: "PostCard" })((theme) => ({
   footer: {
     gridArea: "f",
     alignSelf: "end",
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "center",
-    gap: theme.spacing(1),
-
-    "& > *:not(:last-child)": {
-      "&:after": {
-        display: "block",
-        content: '"·"',
-        marginLeft: theme.spacing(1),
-        color: theme.palette.text.primary,
-      },
-    },
-
-    "&:hover": {
-      zIndex: 1,
-    },
   },
   footerDetail: {
     display: "flex",
@@ -120,9 +103,6 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
 
     const aboveMd = useMatchMedia(theme.breakpoints.up("md", false));
 
-    const showTags = tags.length > 0;
-    const visibleTags = aboveMd ? tags : tags.slice(0, 1);
-
     return (
       <article ref={ref} className={cx(classes.root, className)}>
         <LinkText
@@ -145,40 +125,14 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
         <Typography color="textSecondary" className={classes.description}>
           {description}
         </Typography>
-        <footer className={classes.footer}>
-          <Typography
-            color="textTertiary"
-            noWrap
-            className={classes.footerDetail}
-          >
-            {formatDate(published_at)}
-          </Typography>
-          <Typography
-            color="textTertiary"
-            noWrap
-            className={classes.footerDetail}
-          >
-            {readMins} min read
-          </Typography>
-          {showTags && (
-            <div className={classes.tags}>
-              {visibleTags.map(({ tag }) => {
-                return tag ? (
-                  <Chip
-                    key={tag.id}
-                    style={{
-                      background: theme.fade(
-                        tag.theme || theme.palette.secondary.main,
-                        0.54
-                      ),
-                    }}
-                    text={tag.title}
-                  />
-                ) : null;
-              })}
-            </div>
-          )}
-        </footer>
+        <PostDetails
+          className={classes.footer}
+          component="footer"
+          tags={tags}
+          readMins={readMins}
+          published_at={published_at}
+          truncate={!aboveMd}
+        />
       </article>
     );
   }

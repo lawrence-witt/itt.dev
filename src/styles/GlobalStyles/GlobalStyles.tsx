@@ -33,8 +33,14 @@ export const GlobalStyles: React.FC = () => {
         ".mb-1": {
           marginBottom: theme.spacing(1),
         },
+        ".mb-2": {
+          marginBottom: theme.spacing(2),
+        },
         ".mb-3": {
           marginBottom: theme.spacing(3),
+        },
+        ".mb-4": {
+          marginBottom: theme.spacing(4),
         },
         ".mb-8": {
           marginBottom: theme.spacing(8),
