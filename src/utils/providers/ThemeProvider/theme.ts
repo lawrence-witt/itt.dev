@@ -16,7 +16,7 @@ export const palettes = {
       main: "rgba(252, 94, 94, 0.87)",
     },
     secondary: {
-      main: "rgba(47, 16, 109, 0.87)",
+      main: "rgba(156, 148, 238, 0.87)",
     },
     text: {
       primary: "rgba(255, 255, 255, 0.87)",
@@ -38,6 +38,7 @@ export const palettes = {
     background: {
       page: "rgba(15, 15, 29, 1)",
       card: "rgba(27, 27, 41, 1)",
+      toolTip: "rgba(0, 0, 0, 1)",
     },
   },
 };

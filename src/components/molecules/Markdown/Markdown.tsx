@@ -51,7 +51,7 @@ const defaultComponents: MarkdownComponentsMap = {
     }
 
     return (
-      <LinkText href={href} color="primary" {...commonProps}>
+      <LinkText href={href} {...commonProps}>
         {child}
       </LinkText>
     );

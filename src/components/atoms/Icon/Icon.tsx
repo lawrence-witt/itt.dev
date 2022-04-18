@@ -30,26 +30,29 @@ const useStyles = makeStyles<types.IconStyleProps>({ name: "Icon" })(
   })
 );
 
-export const Icon: React.FC<types.IconProps> = (props) => {
-  const {
-    children,
-    className,
-    rotation = 0,
-    variant = "grow",
-    ...rest
-  } = props;
+export const Icon = React.forwardRef<SVGSVGElement, types.IconProps>(
+  function Icon(props, ref) {
+    const {
+      children,
+      className,
+      rotation = 0,
+      variant = "grow",
+      ...rest
+    } = props;
 
-  const { classes, cx } = useStyles({ rotation });
+    const { classes, cx } = useStyles({ rotation });
 
-  return (
-    <svg
-      className={cx(classes.root, classes[variant], className)}
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 24 24"
-      {...rest}
-    >
-      {children}
-    </svg>
-  );
-};
+    return (
+      <svg
+        ref={ref}
+        className={cx(classes.root, classes[variant], className)}
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        viewBox="0 0 24 24"
+        {...rest}
+      >
+        {children}
+      </svg>
+    );
+  }
+);
