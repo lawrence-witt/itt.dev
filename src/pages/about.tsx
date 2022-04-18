@@ -1,12 +1,40 @@
-import type { NextPage } from "next";
+import type { NextPage, GetStaticProps } from "next";
+import axios from "axios";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
+
+import { IAbout } from "strapi";
 
 import Typography from "components/atoms/Typography";
 import LinkText from "components/atoms/LinkText";
 import LabelledComponent from "components/atoms/LabelledComponent";
 
 import Page from "components/organisms/Page";
+
+interface AboutPageProps {
+  fields: IAbout["fields"];
+}
+
+/*
+ * Next.js Build Functions
+ */
+
+const STRAPI_API = process.env.NEXT_PUBLIC_STRAPI_API;
+
+export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
+  const aboutData = await axios.get<IAbout>(`${STRAPI_API}/about`);
+
+  return {
+    props: {
+      fields: aboutData.data.fields,
+    },
+    revalidate: 10,
+  };
+};
+
+/*
+ *  Page Component
+ */
 
 const useStyles = makeStyles({ name: "AboutPage" })((theme) => ({
   title: {
@@ -41,7 +69,9 @@ const useStyles = makeStyles({ name: "AboutPage" })((theme) => ({
   },
 }));
 
-const About: NextPage = () => {
+const About: NextPage<AboutPageProps> = (props) => {
+  const { fields } = props;
+
   const { classes, cx } = useStyles();
 
   return (
@@ -61,26 +91,13 @@ const About: NextPage = () => {
         developer with a passion for building modern, performant utilities.
       </Typography>
       <section className={cx(classes.detailContainer, "mb-8")}>
-        <LabelledComponent label="Location">
-          <Typography component="p" variant="h5" color="textSecondary">
-            Canterbury, UK
-          </Typography>
-        </LabelledComponent>
-        <LabelledComponent label="Employer">
-          <Typography component="p" variant="h5" color="textSecondary">
-            Digital Futures
-          </Typography>
-        </LabelledComponent>
-        <LabelledComponent label="Favourite Language">
-          <Typography component="p" variant="h5" color="textSecondary">
-            TypeScript
-          </Typography>
-        </LabelledComponent>
-        <LabelledComponent label="Favourite Food">
-          <Typography component="p" variant="h5" color="textSecondary">
-            Roasted Veggie Pizza
-          </Typography>
-        </LabelledComponent>
+        {fields.map(({ label, content, id }) => (
+          <LabelledComponent key={id} label={label}>
+            <Typography component="p" variant="h5" color="textSecondary">
+              {content}
+            </Typography>
+          </LabelledComponent>
+        ))}
       </section>
       <section className={cx(classes.skillsContainer, "mb-8")}></section>
       <section className={classes.actionsContainer}>

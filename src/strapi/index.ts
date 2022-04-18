@@ -1,4 +1,6 @@
+export * from './about';
 export * from './file';
+export * from './labelled-field/labelled-field';
 export * from './permission';
 export * from './posts';
 export * from './role';
