@@ -81,9 +81,11 @@ const useStyles = makeStyles({ name: "AboutPage" })((theme) => ({
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing(6),
+    margin: theme.spacing(8, 0),
 
     [theme.breakpoints.up("md")]: {
       gap: theme.spacing(10),
+      margin: theme.spacing(12, 0),
     },
   },
   skillSet: {
@@ -127,7 +129,7 @@ const About: NextPage<AboutPageProps> = (props) => {
         </Typography>{" "}
         developer with a passion for building modern, performant utilities.
       </Typography>
-      <section className={cx(classes.details, "mb-8")}>
+      <section className={cx(classes.details)}>
         {fields.map(({ label, content, id }) => (
           <LabelledComponent key={id} label={label}>
             <Typography component="p" variant="h5" color="textSecondary">
@@ -136,7 +138,7 @@ const About: NextPage<AboutPageProps> = (props) => {
           </LabelledComponent>
         ))}
       </section>
-      <section className={cx(classes.skills, "mb-8")}>
+      <section className={cx(classes.skills)}>
         {skills.map((set, i) => (
           <div key={i} className={classes.skillSet}>
             {set.map((skill) => (
