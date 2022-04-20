@@ -8,6 +8,7 @@ import {
 } from "utils/functions/getMediaQuery";
 
 import * as types from "./types";
+import getBoxShadow from "utils/functions/getBoxShadow";
 
 export const palettes = {
   dark: {
@@ -98,12 +99,13 @@ export const zIndex = {
 };
 
 export const utilities = {
-  spacing: (...nums: number[]): string =>
-    nums.map((n) => `${8 * n}px`).join(" "),
+  spacing: (...nums: number[]) => nums.map((n) => `${8 * n}px`).join(" "),
   fade: (rgba: string, alpha: number) => {
     const [r, g, b] = parseRGBAString(rgba);
     return writeRGBAString(r, g, b, alpha);
   },
+  shade: (elevation: number, rgb = "rgb(0, 0, 0)") =>
+    getBoxShadow(rgb, elevation),
 };
 
 export const theme = {

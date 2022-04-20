@@ -81,11 +81,10 @@ const useStyles = makeStyles({ name: "AboutPage" })((theme) => ({
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing(6),
-    margin: theme.spacing(8, 0),
+    margin: theme.spacing(12, 0),
 
     [theme.breakpoints.up("md")]: {
       gap: theme.spacing(10),
-      margin: theme.spacing(12, 0),
     },
   },
   skillSet: {
