@@ -1,6 +1,11 @@
+export interface ThemedSkill {
+  title: string;
+  theme: string | undefined;
+}
+
 export interface ProjectCardProps {
   title: string;
   description: string;
-  technologies: { title: string; theme: string | undefined }[];
+  technologies: ThemedSkill[];
   repositoryURL: string;
 }

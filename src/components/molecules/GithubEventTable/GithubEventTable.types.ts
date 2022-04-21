@@ -1,11 +1,5 @@
-export type GithubEventType = "create" | "delete" | "commit";
-
-export interface GithubEvent {
-  type: GithubEventType;
-  text: string;
-  age: string;
-}
+import { ParsedEvent } from "utils/classes/GitHubEventParser";
 
 export interface GithubEventTableProps {
-  events: GithubEvent[];
+  events: ParsedEvent[];
 }

@@ -1,6 +1,7 @@
 import React from "react";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
+import formatDate from "utils/functions/formatDate";
 
 import Typography from "components/atoms/Typography";
 import Chip from "components/atoms/Chip";
@@ -19,7 +20,7 @@ const useStyles = makeStyles({ name: "GithubEventTable" })((theme) => ({
     width: "100%",
     height: "min-content",
   },
-  commit: {
+  push: {
     background: "rgba(46, 16, 109, 1)",
   },
   create: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles({ name: "GithubEventTable" })((theme) => ({
   },
   delete: {
     background: "rgba(176, 0, 35, 1)",
+  },
+  public: {
+    background: "rgba(116, 119, 27, 1)",
   },
 }));
 
@@ -45,7 +49,8 @@ export const GithubEventTable: React.FC<GithubEventTableProps> = (props) => {
           />
           <Typography color="textSecondary">{text}</Typography>
           <Typography color="textSecondary" variant="caption">
-            {age} ago
+            {/* TODO: add timestamp conversion back in  - {age} ago */}
+            {formatDate(age)}
           </Typography>
         </React.Fragment>
       ))}

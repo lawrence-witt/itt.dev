@@ -1,92 +1,27 @@
 import type { GetStaticProps, NextPage } from "next";
 import axios from "axios";
+import { Endpoints } from "@octokit/types";
 
 import { ISkill } from "strapi";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
 
+import GitHubEventParser, {
+  ParsedEvent,
+} from "utils/classes/GitHubEventParser";
+
 import Typography from "components/atoms/Typography";
 
-import ProjectCard from "components/molecules/ProjectCard";
+import ProjectCard, {
+  ProjectCardProps,
+} from "components/molecules/ProjectCard";
 import GithubEventTable from "components/molecules/GithubEventTable";
 
 import Page from "components/organisms/Page";
 
-const demoProjects = [
-  {
-    title: "Dictm",
-    description:
-      "Integrated audio and text note-taking application built with React and Typescript",
-    technologies: [
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-    ],
-    repositoryURL: "https://github.com/lawrence-witt/Dictm",
-  },
-  {
-    title: "set-worker-timer",
-    description: "setTimeout and setInterval, but with Web Workers",
-    technologies: [
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-    ],
-    repositoryURL: "https://github.com/lawrence-witt/Dictm",
-  },
-  {
-    title: "itt.dev",
-    description: "My developer portfolio, built with Next.js and Strapi",
-    technologies: [
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-      { name: "TypeScript", color: "#2B7489" },
-    ],
-    repositoryURL: "https://github.com/lawrence-witt/Dictm",
-  },
-];
-
-const demoEvents = [
-  {
-    type: "commit" as const,
-    text: "Add a meaningful commit message",
-    age: "34 minutes",
-  },
-  {
-    type: "create" as const,
-    text: "Add a meaningful commit message",
-    age: "34 minutes",
-  },
-  {
-    type: "delete" as const,
-    text: "Add a meaningful commit message",
-    age: "34 minutes",
-  },
-];
-
-interface ThemedSkill {
-  title: string;
-  theme: string | undefined;
-}
-
-interface Project {
-  title: string;
-  description: string;
-  technologies: ThemedSkill[];
-  repositoryURL: string;
-}
-
 interface AboutPageProps {
-  projects: Project[];
+  projects: ProjectCardProps[];
+  events: ParsedEvent[];
 }
 
 /*
@@ -133,10 +68,13 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
   const pinnedProjects = await Promise.all(
     nodes.map(async (node: { name: string }) => {
       const repoResponse = await axios.get(
-        `${GITHUB_REST_API_ENDPOINT}/repos/${GITHUB_USER}/${node.name}`
+        `${GITHUB_REST_API_ENDPOINT}/repos/${GITHUB_USER}/${node.name}`,
+        { headers: { Authorization: `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}` } }
       );
 
-      const langResponse = await axios.get(repoResponse.data.languages_url);
+      const langResponse = await axios.get(repoResponse.data.languages_url, {
+        headers: { Authorization: `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}` },
+      });
 
       const themedLangs = Object.keys(langResponse.data).map((key) => {
         for (const { title, theme } of skillsData.data) {
@@ -156,9 +94,23 @@ export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
     })
   );
 
+  // Get GitHub events
+
+  const eventsData = await axios.get<
+    Endpoints["GET /users/{username}/events/public"]["response"]["data"]
+  >(`${GITHUB_REST_API_ENDPOINT}/users/${GITHUB_USER}/events/public`, {
+    headers: { Authorization: `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}` },
+  });
+
+  const MAX_EVENTS = 15;
+  const events = eventsData.data
+    .flatMap((event) => GitHubEventParser.parse(event))
+    .slice(0, MAX_EVENTS);
+
   return {
     props: {
       projects: pinnedProjects,
+      events,
     },
     revalidate: 10,
   };
@@ -198,7 +150,7 @@ const useStyles = makeStyles({ name: "ProjectsPage" })((theme) => ({
 }));
 
 const Projects: NextPage<AboutPageProps> = (props) => {
-  const { projects } = props;
+  const { projects, events } = props;
 
   const { classes } = useStyles();
 
@@ -211,17 +163,9 @@ const Projects: NextPage<AboutPageProps> = (props) => {
       </section>
       <section className={classes.eventsContainer}>
         <Typography variant="h4" className="mb-3">
-          Recent Activity
+          Recent Public Activity
         </Typography>
-        <GithubEventTable
-          events={[
-            ...demoEvents,
-            ...demoEvents,
-            ...demoEvents,
-            ...demoEvents,
-            ...demoEvents,
-          ]}
-        />
+        <GithubEventTable events={events} />
       </section>
     </Page>
   );
