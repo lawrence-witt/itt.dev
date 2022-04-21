@@ -1,4 +1,7 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
+import axios from "axios";
+
+import { ISkill } from "strapi";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
 
@@ -70,6 +73,101 @@ const demoEvents = [
   },
 ];
 
+interface ThemedSkill {
+  title: string;
+  theme: string | undefined;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  technologies: ThemedSkill[];
+  repositoryURL: string;
+}
+
+interface AboutPageProps {
+  projects: Project[];
+}
+
+/*
+ * Next.js Build Functions
+ */
+
+const {
+  GITHUB_USER,
+  GITHUB_PERSONAL_ACCESS_TOKEN,
+  GITHUB_GRAPHQL_ENDPOINT,
+  GITHUB_REST_API_ENDPOINT,
+  NEXT_PUBLIC_STRAPI_API,
+} = process.env;
+
+export const getStaticProps: GetStaticProps<AboutPageProps> = async () => {
+  // Get skills
+
+  const skillsData = await axios.get<ISkill[]>(
+    `${NEXT_PUBLIC_STRAPI_API}/skills`
+  );
+
+  // Get all pinned projects
+
+  const pinnedData = await axios.post(
+    GITHUB_GRAPHQL_ENDPOINT,
+    {
+      query: `{
+        user(login: "${GITHUB_USER}") {
+          pinnedItems(first: 6, types: REPOSITORY) {
+            nodes {
+              ... on Repository {
+                name
+              }
+            }
+          }
+        }
+      }`,
+    },
+    { headers: { Authorization: `Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}` } }
+  );
+
+  const { nodes } = pinnedData.data.data.user.pinnedItems;
+
+  const pinnedProjects = await Promise.all(
+    nodes.map(async (node: { name: string }) => {
+      const repoResponse = await axios.get(
+        `${GITHUB_REST_API_ENDPOINT}/repos/${GITHUB_USER}/${node.name}`
+      );
+
+      const langResponse = await axios.get(repoResponse.data.languages_url);
+
+      const themedLangs = Object.keys(langResponse.data).map((key) => {
+        for (const { title, theme } of skillsData.data) {
+          if (new RegExp(key, "i").test(title)) {
+            return { title, theme };
+          }
+        }
+        return { title: key, theme: undefined };
+      });
+
+      return {
+        title: repoResponse.data.name,
+        description: repoResponse.data.description,
+        technologies: themedLangs,
+        repositoryURL: repoResponse.data.html_url,
+      };
+    })
+  );
+
+  return {
+    props: {
+      projects: pinnedProjects,
+    },
+    revalidate: 10,
+  };
+};
+
+/*
+ * Page Component
+ */
+
 const useStyles = makeStyles({ name: "ProjectsPage" })((theme) => ({
   page: {
     display: "flex",
@@ -99,13 +197,15 @@ const useStyles = makeStyles({ name: "ProjectsPage" })((theme) => ({
   },
 }));
 
-const Projects: NextPage = () => {
+const Projects: NextPage<AboutPageProps> = (props) => {
+  const { projects } = props;
+
   const { classes } = useStyles();
 
   return (
     <Page classes={{ page: classes.page }}>
       <section className={classes.projectsContainer}>
-        {demoProjects.map((project) => (
+        {projects.map((project) => (
           <ProjectCard key={project.title} {...project} />
         ))}
       </section>

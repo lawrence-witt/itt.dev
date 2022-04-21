@@ -32,12 +32,15 @@ const useStyles = makeStyles({ name: "ProjectCard" })((theme) => ({
     gap: theme.spacing(1),
     width: "fit-content",
   },
+  techIconDefault: {
+    fill: theme.palette.text.primary,
+  },
 }));
 
 export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
   const { title, description, technologies, repositoryURL } = props;
 
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
     <Card component="article" className={classes.root}>
@@ -61,11 +64,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = (props) => {
       </div>
       {technologies.length > 0 && (
         <ul className={classes.techList}>
-          {technologies.map(({ name, color }) => (
-            <li key={name} className={classes.techItem}>
-              <CircleIcon style={{ fill: color, height: 8, width: 8 }} />
+          {technologies.map(({ title, theme: fill }) => (
+            <li key={title} className={classes.techItem}>
+              <CircleIcon
+                className={cx({ [classes.techIconDefault]: !fill })}
+                style={{ fill, height: 8, width: 8 }}
+              />
               <Typography variant="body2" color="textTertiary">
-                {name}
+                {title}
               </Typography>
             </li>
           ))}

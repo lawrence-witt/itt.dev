@@ -1,6 +1,6 @@
 export interface ProjectCardProps {
   title: string;
   description: string;
-  technologies: { name: string; color: string }[];
+  technologies: { title: string; theme: string | undefined }[];
   repositoryURL: string;
 }
