@@ -11,6 +11,7 @@ export const GlobalStyles: React.FC = () => {
         html: {
           fontFamily: `Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
           background: theme.palette.background.page,
+          scrollBehavior: "smooth",
         },
         "h1, h2, h3, h4, h5, h6, p": {
           margin: 0,

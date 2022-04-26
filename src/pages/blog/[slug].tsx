@@ -9,6 +9,7 @@ import { makeStyles } from "utils/providers/ThemeProvider";
 import useStrapiApi from "utils/hooks/useStrapiApi";
 
 import Typography from "components/atoms/Typography";
+import LinkText from "components/atoms/LinkText";
 
 import PostDetails from "components/molecules/PostDetails";
 import Article from "components/molecules/Article";
@@ -21,7 +22,10 @@ interface PostParams extends ParsedUrlQuery {
   slug: string;
 }
 
-type ParsedPost = IPost & { readMins: number };
+type ParsedPost = IPost & {
+  readMins: number;
+  anchors: { id: string; text: string }[];
+};
 
 /*
  * Next.js Build Functions
@@ -60,8 +64,22 @@ export const getStaticProps: GetStaticProps<ParsedPost, PostParams> = async (
     };
   }
 
+  const anchors = (() => {
+    const anchorMatches = post.article.matchAll(
+      /<(?:.*?)id="(page-anchor-[\S]+?)"(?:.*?)>([\s\S]*?)<\/(?:.*?)>/g
+    );
+
+    if (!anchorMatches) return [];
+
+    return [...anchorMatches].map((match) => ({
+      id: match[1],
+      text: match[2],
+    }));
+  })();
+
   const parsed = {
     ...post,
+    anchors,
     readMins: Math.round(post.article.split(" ").length / 200),
   };
 
@@ -76,7 +94,23 @@ export const getStaticProps: GetStaticProps<ParsedPost, PostParams> = async (
  */
 
 const useStyles = makeStyles({ name: "PostPage" })((theme) => ({
-  page: {},
+  page: {
+    display: "flex",
+    gap: theme.spacing(3),
+  },
+  anchorsWrapper: {
+    display: "none",
+
+    [theme.breakpoints.up(1050)]: {
+      position: "sticky",
+      top: theme.spacing(12),
+      height: "min-content",
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      gap: theme.spacing(3),
+    },
+  },
   articleWrapper: {
     maxWidth: theme.spacing(91),
   },
@@ -99,9 +133,10 @@ const Post: NextPage<ParsedPost> = (props) => {
     description,
     featured_image,
     article,
-    readMins,
     tags,
     published_at,
+    readMins,
+    anchors,
   } = props;
 
   const asEndpoint = useStrapiApi();
@@ -109,7 +144,18 @@ const Post: NextPage<ParsedPost> = (props) => {
   const { classes, cx } = useStyles();
 
   return (
-    <Page>
+    <Page classes={{ page: classes.page }}>
+      {anchors.length > 0 && (
+        <ul className={classes.anchorsWrapper}>
+          {anchors.map(({ id, text }) => (
+            <li key={id}>
+              <LinkText color="textPrimary" href={`#${id}`}>
+                {text}
+              </LinkText>
+            </li>
+          ))}
+        </ul>
+      )}
       <div className={classes.articleWrapper}>
         <div className={cx(classes.featuredImage, "mb-4")}>
           <Image
