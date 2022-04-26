@@ -1,8 +1,10 @@
 import React from "react";
+import axios from "axios";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
 import FormValidator from "utils/classes/FormValidator";
 
+import Typography from "components/atoms/Typography";
 import Form, { Fields } from "components/atoms/Form";
 import Button from "components/atoms/Button";
 
@@ -29,6 +31,11 @@ const useStyles = makeStyles({ name: "ContactForm" })((theme) => ({
       flexDirection: "row",
     },
   },
+  footer: {
+    display: "flex",
+    gap: theme.spacing(2),
+    alignItems: "center",
+  },
 }));
 
 const initialFields = {
@@ -43,12 +50,35 @@ export const ContactForm: React.FC<ContactFormProps> = (props) => {
 
   const { classes, cx } = useStyles();
 
+  const [status, setStatus] = React.useState<
+    "pending" | "sending" | "success" | "fail"
+  >("pending");
+  const [message, setMessage] = React.useState("");
+
   const onSubmit = React.useCallback(
-    (fields: Fields<keyof typeof initialFields>) => {
-      return null;
+    async (fields: Fields<keyof typeof initialFields>) => {
+      setStatus("sending");
+
+      try {
+        await axios.post("api/email", fields);
+        setMessage("Thanks for your message. I'll be in touch soon!");
+        setStatus("success");
+      } catch (err: any) {
+        setMessage(err.response?.data?.message || err.message);
+        setStatus("fail");
+      }
     },
     []
   );
+
+  const buttonText = {
+    pending: "SEND",
+    sending: "SENDING",
+    success: "SENT",
+    fail: "ERROR",
+  }[status];
+
+  const messageColor = status === "fail" ? "error" : "textPrimary";
 
   return (
     <Form
@@ -97,9 +127,12 @@ export const ContactForm: React.FC<ContactFormProps> = (props) => {
             onChange={onChange}
             validators={[FormValidator.ofMinLength(25)]}
           />
-          <Button type="submit" disabled={invalid}>
-            SEND
-          </Button>
+          <div className={classes.footer}>
+            {message && <Typography color={messageColor}>{message}</Typography>}
+            <Button type="submit" disabled={invalid || status !== "pending"}>
+              {buttonText}
+            </Button>
+          </div>
         </>
       )}
     </Form>
