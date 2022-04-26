@@ -2,6 +2,7 @@ import parseRGBAString from "utils/functions/parseRGBAString";
 import writeRGBAString from "utils/functions/writeRGBAString";
 
 import {
+  prependCSS,
   mediaBetween,
   mediaMaxWidth,
   mediaMinWidth,
@@ -72,20 +73,18 @@ export const breakpoints = {
     xl: 1920,
   },
   up: (v: types.Breakpoints | number, css = true): string =>
-    (css ? "@media " : "") +
-    mediaMinWidth(typeof v === "number" ? v : breakpoints.values[v]),
+    mediaMinWidth(typeof v === "number" ? v : breakpoints.values[v], css),
   down: (v: types.Breakpoints | number, css = true): string =>
-    (css ? "@media " : "") +
-    mediaMaxWidth(typeof v === "number" ? v : breakpoints.values[v]),
+    mediaMaxWidth(typeof v === "number" ? v : breakpoints.values[v], css),
   between: (
     min: types.Breakpoints | number,
     max: types.Breakpoints | number,
     css = true
   ): string =>
-    (css ? "@media " : "") +
     mediaBetween(
       typeof min === "number" ? min : breakpoints.values[min],
-      typeof max === "number" ? max : breakpoints.values[max]
+      typeof max === "number" ? max : breakpoints.values[max],
+      css
     ),
 };
 
@@ -106,6 +105,7 @@ export const utilities = {
   },
   shade: (elevation: number, rgb = "rgb(0, 0, 0)") =>
     getBoxShadow(rgb, elevation),
+  media: (query: string, css = true) => prependCSS(query, css),
 };
 
 export const theme = {

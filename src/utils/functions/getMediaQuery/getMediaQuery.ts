@@ -1,4 +1,4 @@
-const prependCSS = (query: string, asCSS = false) =>
+export const prependCSS = (query: string, asCSS = false) =>
   asCSS ? `@media ${query}` : query;
 
 export const mediaMinWidth = (n: number, asCSS = false): string =>

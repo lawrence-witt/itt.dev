@@ -17,6 +17,7 @@ const useStyles = makeStyles({ name: "HomePage" })((theme) => ({
   },
   matrixLogo: {
     maxWidth: 500,
+    padding: theme.spacing(3, 0),
   },
 }));
 
