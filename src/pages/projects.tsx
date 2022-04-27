@@ -156,7 +156,7 @@ const Projects: NextPage<AboutPageProps> = (props) => {
   const { classes, cx } = useStyles();
 
   return (
-    <Page classes={{ page: classes.page }}>
+    <Page classes={{ page: classes.page }} subtitle="projects">
       <section className={classes.projectsContainer}>
         {projects.map((project) => (
           <OnEntry key={project.title} slide fade>

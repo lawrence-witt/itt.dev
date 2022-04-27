@@ -148,7 +148,10 @@ const Post: NextPage<ParsedPost> = (props) => {
   return (
     <OnEntry slide fade>
       {(className) => (
-        <Page classes={{ page: cx(classes.page, className) }}>
+        <Page
+          classes={{ page: cx(classes.page, className) }}
+          subtitle={title.toLowerCase()}
+        >
           {anchors.length > 0 && (
             <ul className={classes.anchorsWrapper}>
               {anchors.map(({ id, text }) => (

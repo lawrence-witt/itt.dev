@@ -50,7 +50,7 @@ const Contact: NextPage = () => {
   const { classes, cx } = useStyles();
 
   return (
-    <Page classes={{ page: classes.page }}>
+    <Page classes={{ page: classes.page }} subtitle="contact">
       <OnEntry fade slide className={classes.contactForm}>
         {(className) => <ContactForm className={className} />}
       </OnEntry>

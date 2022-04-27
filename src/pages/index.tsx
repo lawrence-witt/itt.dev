@@ -105,6 +105,7 @@ const useStyles = makeStyles({ name: "HomePage" })((theme) => ({
 
     [theme.breakpoints.up("md")]: {
       gridTemplateColumns: `repeat(6, ${theme.spacing(5)})`,
+      rowGap: theme.spacing(9),
     },
   },
   skillIcon: {

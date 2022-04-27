@@ -67,7 +67,7 @@ const Blog: NextPage<BlogPageProps> = (props) => {
   const { classes } = useStyles();
 
   return (
-    <Page>
+    <Page subtitle="blog">
       <section className={classes.cards}>
         {posts.map((post) => (
           <OnEntry slide fade key={post.id}>
