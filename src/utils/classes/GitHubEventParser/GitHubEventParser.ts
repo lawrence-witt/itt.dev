@@ -5,16 +5,16 @@ import {
 } from "./GitHubEventParser.types";
 
 export class GitHubEventParser {
-  static #formatEvent(type: ParsedEventType, text: string, age: string) {
+  static formatEvent(type: ParsedEventType, text: string, age: string) {
     return { type, text, age };
   }
 
-  static #parseCreateEvent(event: GitHubEvent) {
+  static parseCreateEvent(event: GitHubEvent) {
     if (event.payload.ref === null) return [];
 
     if (event.payload.ref_type === "tag") {
       return [
-        this.#formatEvent(
+        this.formatEvent(
           "create",
           `New tag \`${event.payload.ref}\``,
           `${event.created_at}`
@@ -24,7 +24,7 @@ export class GitHubEventParser {
 
     if (event.payload.ref === event.payload.master_branch) {
       return [
-        this.#formatEvent(
+        this.formatEvent(
           "create",
           `New repository \`${event.repo.name}\``,
           `${event.created_at}`
@@ -33,7 +33,7 @@ export class GitHubEventParser {
     }
 
     return [
-      this.#formatEvent(
+      this.formatEvent(
         "create",
         `New branch ${event.payload.ref}`,
         `${event.created_at}`
@@ -41,10 +41,10 @@ export class GitHubEventParser {
     ];
   }
 
-  static #parseDeleteEvent(event: GitHubEvent) {
+  static parseDeleteEvent(event: GitHubEvent) {
     if (event.payload.ref_type === "tag") {
       return [
-        this.#formatEvent(
+        this.formatEvent(
           "delete",
           `Tag \`${event.payload.ref}\``,
           `${event.created_at}`
@@ -53,7 +53,7 @@ export class GitHubEventParser {
     }
 
     return [
-      this.#formatEvent(
+      this.formatEvent(
         "delete",
         `Branch \`${event.payload.ref}\``,
         `${event.created_at}`
@@ -61,9 +61,9 @@ export class GitHubEventParser {
     ];
   }
 
-  static #parsePublicEvent(event: GitHubEvent) {
+  static parsePublicEvent(event: GitHubEvent) {
     return [
-      this.#formatEvent(
+      this.formatEvent(
         "public",
         `Repository \`${event.repo.name}\``,
         `${event.created_at}`
@@ -71,10 +71,10 @@ export class GitHubEventParser {
     ];
   }
 
-  static #parsePushEvent(event: GitHubEvent): ParsedEvent[] {
+  static parsePushEvent(event: GitHubEvent): ParsedEvent[] {
     const commits = event.payload.commits.length;
     return [
-      this.#formatEvent(
+      this.formatEvent(
         "push",
         `${commits} commit${commits > 1 ? "s" : ""} to \`${event.repo.name}\``,
         `${event.created_at}`
@@ -85,13 +85,13 @@ export class GitHubEventParser {
   static parse(event: GitHubEvent) {
     switch (event.type) {
       case "CreateEvent":
-        return this.#parseCreateEvent(event);
+        return this.parseCreateEvent(event);
       case "DeleteEvent":
-        return this.#parseDeleteEvent(event);
+        return this.parseDeleteEvent(event);
       case "PublicEvent":
-        return this.#parsePublicEvent(event);
+        return this.parsePublicEvent(event);
       case "PushEvent":
-        return this.#parsePushEvent(event);
+        return this.parsePushEvent(event);
       default:
         return [];
     }
