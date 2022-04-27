@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Image from "next/image";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
@@ -16,6 +17,7 @@ import PostDetails from "components/molecules/PostDetails";
 import Article from "components/molecules/Article";
 
 import Page from "components/organisms/Page";
+import Fallback from "components/organisms/Fallback";
 
 import { IPost } from "strapi";
 
@@ -130,6 +132,16 @@ const useStyles = makeStyles({ name: "PostPage" })((theme) => ({
 }));
 
 const Post: NextPage<ParsedPost> = (props) => {
+  const asEndpoint = useStrapiApi();
+
+  const { classes, cx } = useStyles();
+
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Fallback />;
+  }
+
   const {
     title,
     description,
@@ -140,10 +152,6 @@ const Post: NextPage<ParsedPost> = (props) => {
     readMins,
     anchors,
   } = props;
-
-  const asEndpoint = useStrapiApi();
-
-  const { classes, cx } = useStyles();
 
   return (
     <OnEntry slide fade>
