@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 
 import { makeStyles } from "utils/providers/ThemeProvider";
 
+import OnEntry from "components/atoms/OnEntry";
 import LinkText from "components/atoms/LinkText";
 import {
   EmailIcon,
@@ -46,61 +47,67 @@ const useStyles = makeStyles({ name: "ContactPage" })((theme) => ({
 }));
 
 const Contact: NextPage = () => {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
     <Page classes={{ page: classes.page }}>
-      <ContactForm className={classes.contactForm} />
-      <ul className={classes.externalLinks}>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href={emailLink}
-            target="_blank"
-            rel="noreferrer"
-            className={classes.externalLink}
-          >
-            <EmailIcon variant="md" />
-            Email
-          </LinkText>
-        </li>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href={githubProfile}
-            target="_blank"
-            rel="noreferrer"
-            className={classes.externalLink}
-          >
-            <GithubIcon variant="md" />
-            GitHub
-          </LinkText>
-        </li>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href={stackOverflowProfile}
-            target="_blank"
-            rel="noreferrer"
-            className={classes.externalLink}
-          >
-            <StackOverflowIcon variant="md" />
-            Stack Overflow
-          </LinkText>
-        </li>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href={linkedInProfile}
-            target="_blank"
-            rel="noreferrer"
-            className={classes.externalLink}
-          >
-            <LinkedInIcon variant="md" />
-            LinkedIn
-          </LinkText>
-        </li>
-      </ul>
+      <OnEntry fade slide className={classes.contactForm}>
+        {(className) => <ContactForm className={className} />}
+      </OnEntry>
+      <OnEntry fade slide>
+        {(className) => (
+          <ul className={cx(classes.externalLinks, className)}>
+            <li>
+              <LinkText
+                color="textPrimary"
+                href={emailLink}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.externalLink}
+              >
+                <EmailIcon variant="md" />
+                Email
+              </LinkText>
+            </li>
+            <li>
+              <LinkText
+                color="textPrimary"
+                href={githubProfile}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.externalLink}
+              >
+                <GithubIcon variant="md" />
+                GitHub
+              </LinkText>
+            </li>
+            <li>
+              <LinkText
+                color="textPrimary"
+                href={stackOverflowProfile}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.externalLink}
+              >
+                <StackOverflowIcon variant="md" />
+                Stack Overflow
+              </LinkText>
+            </li>
+            <li>
+              <LinkText
+                color="textPrimary"
+                href={linkedInProfile}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.externalLink}
+              >
+                <LinkedInIcon variant="md" />
+                LinkedIn
+              </LinkText>
+            </li>
+          </ul>
+        )}
+      </OnEntry>
     </Page>
   );
 };

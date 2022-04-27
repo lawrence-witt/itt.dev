@@ -5,6 +5,7 @@ import formatDate from "utils/functions/formatDate";
 
 import Typography from "components/atoms/Typography";
 import Chip from "components/atoms/Chip";
+import OnEntry from "components/atoms/OnEntry";
 
 import { GithubEventTableProps } from "./GithubEventTable.types";
 
@@ -43,15 +44,32 @@ export const GithubEventTable: React.FC<GithubEventTableProps> = (props) => {
     <section className={classes.root}>
       {events.map(({ type, text, age }, i) => (
         <React.Fragment key={i}>
-          <Chip
-            text={type.toUpperCase()}
-            className={cx(classes[type], classes.chip)}
-          />
-          <Typography color="textSecondary">{text}</Typography>
-          <Typography color="textSecondary" variant="caption">
-            {/* TODO: add timestamp conversion back in  - {age} ago */}
-            {formatDate(age)}
-          </Typography>
+          <OnEntry slide fade>
+            {(className) => (
+              <Chip
+                text={type.toUpperCase()}
+                className={cx(classes[type], classes.chip, className)}
+              />
+            )}
+          </OnEntry>
+          <OnEntry slide fade>
+            {(className) => (
+              <Typography className={className} color="textSecondary">
+                {text}
+              </Typography>
+            )}
+          </OnEntry>
+          <OnEntry slide fade>
+            {(className) => (
+              <Typography
+                className={className}
+                color="textSecondary"
+                variant="caption"
+              >
+                {formatDate(age)}
+              </Typography>
+            )}
+          </OnEntry>
         </React.Fragment>
       ))}
     </section>

@@ -10,6 +10,7 @@ import GitHubEventParser, {
   ParsedEvent,
 } from "utils/classes/GitHubEventParser";
 
+import OnEntry from "components/atoms/OnEntry";
 import Typography from "components/atoms/Typography";
 
 import ProjectCard, {
@@ -152,19 +153,26 @@ const useStyles = makeStyles({ name: "ProjectsPage" })((theme) => ({
 const Projects: NextPage<AboutPageProps> = (props) => {
   const { projects, events } = props;
 
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
     <Page classes={{ page: classes.page }}>
       <section className={classes.projectsContainer}>
         {projects.map((project) => (
-          <ProjectCard key={project.title} {...project} />
+          <OnEntry key={project.title} slide fade>
+            {(className) => <ProjectCard {...project} className={className} />}
+          </OnEntry>
         ))}
       </section>
       <section className={classes.eventsContainer}>
-        <Typography variant="h4" className="mb-3">
-          Recent Public Activity
-        </Typography>
+        <OnEntry slide fade>
+          {(className) => (
+            <Typography variant="h4" className={cx("mb-3", className)}>
+              Recent Public Activity
+            </Typography>
+          )}
+        </OnEntry>
+
         <GithubEventTable events={events} />
       </section>
     </Page>

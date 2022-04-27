@@ -70,95 +70,97 @@ export type Classes = Omit<
   "drawerContent"
 >;
 
-export const Header: React.FC<HeaderProps> = (props) => {
-  const { theme } = useThemeContext();
+export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
+  function Header(props, ref) {
+    const { theme } = useThemeContext();
 
-  const { classes } = useStyles();
+    const { classes } = useStyles();
 
-  const mClasses = useMergedClasses(classes, props.classes);
+    const mClasses = useMergedClasses(classes, props.classes);
 
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const aboveSm = useMatchMedia(theme.breakpoints.up("sm", false));
+    const [menuOpen, setMenuOpen] = React.useState(false);
+    const aboveSm = useMatchMedia(theme.breakpoints.up("sm", false));
 
-  const openMenu = React.useCallback(() => setMenuOpen(true), []);
-  const closeMenu = React.useCallback(() => setMenuOpen(false), []);
+    const openMenu = React.useCallback(() => setMenuOpen(true), []);
+    const closeMenu = React.useCallback(() => setMenuOpen(false), []);
 
-  React.useEffect(() => {
-    aboveSm && closeMenu();
-  }, [aboveSm, closeMenu]);
+    React.useEffect(() => {
+      aboveSm && closeMenu();
+    }, [aboveSm, closeMenu]);
 
-  const navElement = (
-    <nav>
-      <ul className={mClasses.navList}>
-        <li>
+    const navElement = (
+      <nav>
+        <ul className={mClasses.navList}>
+          <li>
+            <LinkText
+              color="textPrimary"
+              href="/"
+              activeClass={mClasses.navLinkActive}
+            >
+              home
+            </LinkText>
+          </li>
+          <li>
+            <LinkText
+              color="textPrimary"
+              href="/projects"
+              activeClass={mClasses.navLinkActive}
+            >
+              projects
+            </LinkText>
+          </li>
+          <li>
+            <LinkText
+              color="textPrimary"
+              href="/contact"
+              activeClass={mClasses.navLinkActive}
+            >
+              contact
+            </LinkText>
+          </li>
+          <li>
+            <LinkText
+              color="textPrimary"
+              href="/blog"
+              activeClass={mClasses.navLinkActive}
+            >
+              blog
+            </LinkText>
+          </li>
+        </ul>
+      </nav>
+    );
+
+    return (
+      <header ref={ref} className={mClasses.root}>
+        <LayoutContain classes={{ wrapper: mClasses.container }}>
           <LinkText
+            href="/"
             color="textPrimary"
-            href="/about"
-            activeClass={mClasses.navLinkActive}
+            variant="h3"
+            className={mClasses.title}
           >
-            about
+            w.itt
           </LinkText>
-        </li>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href="/projects"
-            activeClass={mClasses.navLinkActive}
+          <div className={mClasses.web}>{navElement}</div>
+          <div className={mClasses.mobile}>
+            <IconButton color="textSecondary" onClick={openMenu}>
+              <MenuIcon />
+            </IconButton>
+          </div>
+          <Drawer
+            classes={{ content: mClasses.drawerContent }}
+            anchor="right"
+            open={menuOpen}
+            backdropProps={{ onClick: closeMenu }}
           >
-            projects
-          </LinkText>
-        </li>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href="/contact"
-            activeClass={mClasses.navLinkActive}
-          >
-            contact
-          </LinkText>
-        </li>
-        <li>
-          <LinkText
-            color="textPrimary"
-            href="/blog"
-            activeClass={mClasses.navLinkActive}
-          >
-            blog
-          </LinkText>
-        </li>
-      </ul>
-    </nav>
-  );
-
-  return (
-    <header className={mClasses.root}>
-      <LayoutContain classes={{ wrapper: mClasses.container }}>
-        <LinkText
-          href="/"
-          color="textPrimary"
-          variant="h3"
-          className={mClasses.title}
-        >
-          w.itt
-        </LinkText>
-        <div className={mClasses.web}>{navElement}</div>
-        <div className={mClasses.mobile}>
-          <IconButton color="textSecondary" onClick={openMenu}>
-            <MenuIcon />
-          </IconButton>
-        </div>
-        <Drawer
-          classes={{ content: mClasses.drawerContent }}
-          anchor="right"
-          open={menuOpen}
-          backdropProps={{ onClick: closeMenu }}
-        >
-          <IconButton onClick={closeMenu}>
-            <CrossIcon />
-          </IconButton>
-          {navElement}
-        </Drawer>
-      </LayoutContain>
-    </header>
-  );
-};
+            <IconButton onClick={closeMenu}>
+              <CrossIcon />
+            </IconButton>
+            {navElement}
+          </Drawer>
+        </LayoutContain>
+      </header>
+    );
+  }
+);

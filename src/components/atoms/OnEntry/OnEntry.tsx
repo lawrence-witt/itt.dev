@@ -4,6 +4,8 @@ import { makeStyles } from "utils/providers/ThemeProvider";
 import transformAdjustedBoundingClientRect from "utils/functions/transformAdjustedBoundingClientRect";
 
 import { OnEntryProps, OnEntryStylesProps } from "./OnEntry.types";
+import PolymorphicComponent from "utils/types/PolymorphicComponent";
+import { useMergedClasses } from "tss-react";
 
 const useStyles = makeStyles<OnEntryStylesProps>({ name: "OnEntry" })(
   (_, { slide, fade }) => ({
@@ -61,10 +63,16 @@ const useStyles = makeStyles<OnEntryStylesProps>({ name: "OnEntry" })(
 
 export type Classes = ReturnType<typeof useStyles>["classes"];
 
-export const OnEntry = <E extends Element>(
-  props: OnEntryProps<E>
-): JSX.Element | null => {
+const defaultComponent = "div";
+
+export const OnEntry: PolymorphicComponent<
+  OnEntryProps<Element>,
+  typeof defaultComponent
+> = (props) => {
   const {
+    className,
+    classes,
+    component: Component = defaultComponent,
     fade,
     slide,
     root,
@@ -74,7 +82,7 @@ export const OnEntry = <E extends Element>(
     children,
   } = props;
 
-  const ref = React.useRef<HTMLElement>();
+  const ref = React.useRef<HTMLDivElement>(null);
   const isMounted = React.useRef(false);
 
   const [entered, setEntered] = React.useState(false);
@@ -93,7 +101,7 @@ export const OnEntry = <E extends Element>(
   const mergedSlideProps = React.useMemo(
     () => ({
       from: "bottom" as const,
-      distance: "50%",
+      distance: 100,
       duration: 300,
       delay: 0,
       easing: "ease-in-out",
@@ -110,7 +118,9 @@ export const OnEntry = <E extends Element>(
     [mergedFadeProps, mergedSlideProps]
   );
 
-  const { classes, cx } = useStyles(mergedStyleProps);
+  const { classes: dClasses, cx } = useStyles(mergedStyleProps);
+
+  const mClasses = useMergedClasses(dClasses, classes);
 
   React.useEffect(() => {
     if (!ref.current || entered) return;
@@ -118,12 +128,7 @@ export const OnEntry = <E extends Element>(
     const checkExited = (el: HTMLElement) => {
       const { height, y } = transformAdjustedBoundingClientRect(el);
 
-      const offsetTop = (() => {
-        if (root) return root.current.scrollTop;
-        return window.pageYOffset;
-      })();
-
-      if (y + height > offsetTop) return;
+      if (y + height > 0) return;
 
       setEntered(true);
       setTransition(false);
@@ -150,13 +155,16 @@ export const OnEntry = <E extends Element>(
     return () => observer.disconnect();
   }, [entered, root, ignoreMount, ignoreExited, onEntered]);
 
-  return children(
-    cx(classes.root, {
-      [classes.fade]: Boolean(fade),
-      [classes.slide]: Boolean(slide),
-      [classes.entered]: entered,
-      [classes.transition]: transition,
-    }),
-    ref
+  return (
+    <Component ref={ref} className={cx(mClasses.root, className)}>
+      {children(
+        cx({
+          [mClasses.fade]: Boolean(fade),
+          [mClasses.slide]: Boolean(slide),
+          [mClasses.entered]: entered,
+          [mClasses.transition]: transition,
+        })
+      )}
+    </Component>
   );
 };

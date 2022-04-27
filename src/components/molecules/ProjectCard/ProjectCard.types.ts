@@ -4,6 +4,7 @@ export interface ThemedSkill {
 }
 
 export interface ProjectCardProps {
+  className?: string;
   title: string;
   description: string;
   technologies: ThemedSkill[];

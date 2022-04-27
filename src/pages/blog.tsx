@@ -5,6 +5,8 @@ import { makeStyles } from "utils/providers/ThemeProvider";
 
 import { IPost } from "strapi";
 
+import OnEntry from "components/atoms/OnEntry";
+
 import PostCard from "components/molecules/PostCard";
 
 import Page from "components/organisms/Page";
@@ -68,7 +70,15 @@ const Blog: NextPage<BlogPageProps> = (props) => {
     <Page>
       <section className={classes.cards}>
         {posts.map((post) => (
-          <PostCard key={post.id} url={`/blog/${post.slug}`} {...post} />
+          <OnEntry slide fade key={post.id}>
+            {(className) => (
+              <PostCard
+                url={`/blog/${post.slug}`}
+                {...post}
+                className={className}
+              />
+            )}
+          </OnEntry>
         ))}
       </section>
     </Page>

@@ -17,6 +17,7 @@ export type OnEntryStylesProps = {
 };
 
 export interface OnEntryProps<R extends Element> {
+  className?: string;
   classes?: Partial<Classes>;
   fade?: boolean | TransitionProps;
   slide?: boolean | SlideProps;
@@ -24,8 +25,5 @@ export interface OnEntryProps<R extends Element> {
   ignoreMount?: boolean;
   ignoreExited?: boolean;
   onEntered?: () => void;
-  children: (
-    className: string,
-    ref: React.MutableRefObject<any>
-  ) => JSX.Element;
+  children: (className: string) => JSX.Element;
 }

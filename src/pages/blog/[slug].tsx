@@ -8,6 +8,7 @@ import { makeStyles } from "utils/providers/ThemeProvider";
 
 import useStrapiApi from "utils/hooks/useStrapiApi";
 
+import OnEntry from "components/atoms/OnEntry";
 import Typography from "components/atoms/Typography";
 import LinkText from "components/atoms/LinkText";
 
@@ -112,6 +113,7 @@ const useStyles = makeStyles({ name: "PostPage" })((theme) => ({
     },
   },
   articleWrapper: {
+    width: "100%",
     maxWidth: theme.spacing(91),
   },
   featuredImage: {
@@ -144,40 +146,44 @@ const Post: NextPage<ParsedPost> = (props) => {
   const { classes, cx } = useStyles();
 
   return (
-    <Page classes={{ page: classes.page }}>
-      {anchors.length > 0 && (
-        <ul className={classes.anchorsWrapper}>
-          {anchors.map(({ id, text }) => (
-            <li key={id}>
-              <LinkText color="textPrimary" href={`#${id}`}>
-                {text}
-              </LinkText>
-            </li>
-          ))}
-        </ul>
+    <OnEntry slide fade>
+      {(className) => (
+        <Page classes={{ page: cx(classes.page, className) }}>
+          {anchors.length > 0 && (
+            <ul className={classes.anchorsWrapper}>
+              {anchors.map(({ id, text }) => (
+                <li key={id}>
+                  <LinkText color="textPrimary" href={`#${id}`}>
+                    {text}
+                  </LinkText>
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className={classes.articleWrapper}>
+            <div className={cx(classes.featuredImage, "mb-4")}>
+              <Image
+                src={asEndpoint(featured_image.url)}
+                alt={featured_image.alternativeText}
+                layout="fill"
+              />
+            </div>
+            <div className={cx(classes.details, "mb-4")}>
+              <Typography variant="h4" component="h2">
+                {title}
+              </Typography>
+              <Typography color="textSecondary">{description}</Typography>
+              <PostDetails
+                published_at={published_at}
+                readMins={readMins}
+                tags={tags}
+              />
+            </div>
+            <Article>{article}</Article>
+          </div>
+        </Page>
       )}
-      <div className={classes.articleWrapper}>
-        <div className={cx(classes.featuredImage, "mb-4")}>
-          <Image
-            src={asEndpoint(featured_image.url)}
-            alt={featured_image.alternativeText}
-            layout="fill"
-          />
-        </div>
-        <div className={cx(classes.details, "mb-4")}>
-          <Typography variant="h4" component="h2">
-            {title}
-          </Typography>
-          <Typography color="textSecondary">{description}</Typography>
-          <PostDetails
-            published_at={published_at}
-            readMins={readMins}
-            tags={tags}
-          />
-        </div>
-        <Article>{article}</Article>
-      </div>
-    </Page>
+    </OnEntry>
   );
 };
 

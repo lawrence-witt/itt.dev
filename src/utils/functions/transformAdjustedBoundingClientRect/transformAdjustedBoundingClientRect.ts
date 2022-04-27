@@ -23,8 +23,6 @@ export function transformAdjustedBoundingRect(el: HTMLElement) {
       return rect;
     }
 
-    console.log(el.offsetHeight);
-
     const to = style.transformOrigin;
     const x = rect.x - dx - (1 - sx) * parseFloat(to);
     const y =
