@@ -46,7 +46,7 @@ const useStyles = makeStyles({ name: "Header" })((theme) => ({
 
     "&  ul": {
       flexDirection: "column",
-      alignItems: "end",
+      alignItems: "flex-end",
     },
   },
   nav: {},
@@ -54,7 +54,6 @@ const useStyles = makeStyles({ name: "Header" })((theme) => ({
     display: "flex",
     gap: theme.spacing(3),
     alignItems: "center",
-    justifyContent: "space-between",
   },
   navLinkActive: {
     color: theme.palette.primary.main,
