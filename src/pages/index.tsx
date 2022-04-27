@@ -82,18 +82,33 @@ const useStyles = makeStyles({ name: "HomePage" })((theme) => ({
     color: theme.palette.text.disabled,
     display: "flex",
     flexDirection: "column",
-    gap: theme.spacing(6),
+    gap: theme.spacing(10),
     margin: theme.spacing(12, 0),
 
     [theme.breakpoints.up("md")]: {
-      gap: theme.spacing(10),
+      gap: theme.spacing(12),
     },
   },
   skillSet: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: "grid",
+    gridTemplateColumns: `repeat(3, ${theme.spacing(5)})`,
     justifyContent: "space-between",
-    gap: theme.spacing(2),
+    rowGap: theme.spacing(6),
+
+    [theme.breakpoints.up(400)]: {
+      gridTemplateColumns: `repeat(4, ${theme.spacing(5)})`,
+    },
+
+    [theme.breakpoints.up("sm")]: {
+      gridTemplateColumns: `repeat(5, ${theme.spacing(5)})`,
+    },
+
+    [theme.breakpoints.up("md")]: {
+      gridTemplateColumns: `repeat(6, ${theme.spacing(5)})`,
+    },
+  },
+  skillIcon: {
+    width: "min-content",
   },
   actions: {
     display: "flex",
@@ -157,11 +172,11 @@ const Home: NextPage<HomePageProps> = (props) => {
           </section>
         )}
       </OnEntry>
-      <OnEntry slide fade>
-        {(className) => (
-          <section className={cx(classes.skills, className)}>
-            {skills.map((set, i) => (
-              <div key={i} className={classes.skillSet}>
+      <section className={classes.skills}>
+        {skills.map((set, i) => (
+          <OnEntry key={i} slide fade>
+            {(className) => (
+              <div className={cx(classes.skillSet, className)}>
                 {set.map((skill) => (
                   <ToolTipController
                     key={skill.id}
@@ -169,14 +184,18 @@ const Home: NextPage<HomePageProps> = (props) => {
                     arrow
                     touchTimeout={2000}
                   >
-                    <SkillIcon {...skill} variant="lg" />
+                    <SkillIcon
+                      className={classes.skillIcon}
+                      {...skill}
+                      variant="lg"
+                    />
                   </ToolTipController>
                 ))}
               </div>
-            ))}
-          </section>
-        )}
-      </OnEntry>
+            )}
+          </OnEntry>
+        ))}
+      </section>
       <section className={classes.actions}>
         <OnEntry slide fade>
           {(className) => (
